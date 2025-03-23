@@ -80,4 +80,36 @@ body {
   justify-content: center;
   align-items: center;
 }
-/* login end  */
+/* card */
+.animal-card{
+  width: 250px;
+  height: 389px;
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+-webkit-box-shadow: 0px 0px 25px 3px rgba(0,0,0,0.75);
+-moz-box-shadow: 0px 0px 25px 3px rgba(0,0,0,0.75);
+box-shadow: 0px 0px 25px 3px rgba(0,0,0,0.75);
+}
+  /* css mte3 majmou3t cards */
+.card-animal{
+display: flex;
+flex-wrap: wrap;
+justify-content: center;
+margin-top: 100px;
+}
+
+.h1name{
+  color: rgb(0, 0, 0);
+  font-size:medium;
+}
+.animal-desc{
+  display: flex;
+  flex-direction: row;
+}
+.animal-sec{
+  margin-left: 10px;
+  margin-bottom: 20px;
+}

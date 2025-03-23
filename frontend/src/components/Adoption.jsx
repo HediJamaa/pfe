@@ -3,8 +3,9 @@ import { Button } from "primereact/button";
 import { Carousel } from "primereact/carousel";
 import { Tag } from "primereact/tag";
 import { ProductService } from "./service/ProductService";
-import { useSelector } from "react-redux";
-import Cardeeee from "./Cardeeee";
+import { useDispatch, useSelector } from "react-redux";
+import { getanimal } from "../JS/userSlice/animalSlice";
+import Cardanimal from "./Cardanimal";
 
 export default function NumScrollDemo() {
   const [products, setProducts] = useState([]);
@@ -38,23 +39,28 @@ export default function NumScrollDemo() {
   const productTemplate = (product) => (
     <div className="border-1 surface-border border-round m-2 text-center py-5 px-3">
       <div style={{ display: "flex", justifyContent: "center" }} className="mb-3">
-        <img src={product.image} alt={product.name} className="w-6 shadow-2" />
+        <img src={product.img} alt={product.name} className="w-6 shadow-2" />
       </div>
       <div>
         <h4 className="mb-1">{product.name}</h4>
-        <h6 className="mt-0 mb-3">${product.price}</h6>
+        <h6 style={{justifyContent:"center"}} className="mt-0 mb-3 animal-desc"><h1 className='h1name'>race:&nbsp;</h1>{product.race}</h6>
         <Tag value={product.inventoryStatus} severity={getSeverity(product)} />
         <div className="mt-5 flex flex-wrap gap-2 justify-content-center">
-          <Button icon="pi pi-search" className="p-button p-button-rounded" />
           <Button icon="pi pi-star-fill" className="p-button-success p-button-rounded" />
         </div>
       </div>
     </div>
   );
 
-  // ✅ استخدم optional chaining لتجنب الأخطاء
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getanimal()); // جلب البيانات عند تحميل الصفحة
+  }, [dispatch]);
+
+
+  // mapping ✅ استخدم optional chaining لتجنب الأخطاء
   const Animals = useSelector((state) => state.animal?.animalList || []);
-  console.log(Animals)
 
   return (
     <>
@@ -69,12 +75,13 @@ export default function NumScrollDemo() {
           itemTemplate={productTemplate}
         />
       </div>
-
-      {Animals.length > 0 ? (
-        Animals.map((el) => <Cardeeee key={el.id} product={el} />)
-      ) : (
-        <p>No animals available</p>
-      )}
+      <div className="card-animal" >
+        {Animals.length > 0 ? (
+          Animals.map((el) => <Cardanimal key={el.id} product={el} />)
+        ) : (
+          <p>No animals available</p>
+        )}
+      </div>
     </>
   );
 }

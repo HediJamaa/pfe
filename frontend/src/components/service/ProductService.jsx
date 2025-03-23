@@ -1,84 +1,47 @@
-
 export const ProductService = {
-    getProductsData() {
+  async getProductsData() {
+      try {
+          const response = await fetch('http://localhost:5000/animals/'); 
+          if (!response.ok) {
+              throw new Error('Network response was not ok');
+          }
+          const data = await response.json();
+          
+          // إذا كانت البيانات تحتوي على كائن يحتوي على مصفوفة، قم بالوصول إليها.
+          // مثال: { animals: [...] }
+          if (Array.isArray(data)) {
+              return data;
+          } else if (data.animals && Array.isArray(data.animals)) {
+              return data.animals; // استرجاع المصفوفة الموجودة داخل الكائن
+          } else {
+              throw new Error('Data is not an array or does not contain animals array');
+          }
+      } catch (error) {
+          console.error('Error fetching products:', error);
+          return []; // العودة بمصفوفة فارغة في حال حدوث خطأ
+      }
+  },
 
-        return [
-          {
-            id: "1000",
-            code: "f230fh0g3",
-            name: "Bamboo Watch",
-            description: "Product Description",
-            image: "bamboo-watch.jpg",
-            price: 65,
-            category: "Accessories",
-            quantity: 24,
-            inventoryStatus: "INSTOCK",
-            rating: 5,
-          },
-          {
-            id: "1001",
-            code: "nvklal433",
-            name: "Black Wayytch",
-            description: "Product Description",
-            image: "/Chat2.jpg",
-            price: 72,
-            category: "Accessories",
-            quantity: 61,
-            inventoryStatus: "INSTOCK",
-            rating: 4,
-          },
-          {
-            id: "1002",
-            code: "zz21cz3c1",
-            name: "Blue Band",
-            description: "Product Description",
-            image: "blue-band.jpg",
-            price: 79,
-            category: "Fitness",
-            quantity: 2,
-            inventoryStatus: "LOWSTOCK",
-            rating: 3,
-          },
-          {
-            id: "1003",
-            code: "244wgerg2",
-            name: "Blue T-Shirt",
-            description: "Product Description",
-            image: "blue-t-shirt.jpg",
-            price: 29,
-            category: "Clothing",
-            quantity: 25,
-            inventoryStatus: "INSTOCK",
-            rating: 5,
-          },
+  async getProductsMini() {
+      const data = await this.getProductsData(); // استخدام await للحصول على البيانات
+      return data.slice(0, 5); // استخدام slice فقط إذا كانت البيانات مصفوفة
+  },
 
-    
+  async getProductsSmall() {
+      const data = await this.getProductsData();
+      return data.slice(0, 10);
+  },
 
+  async getProducts() {
+      return this.getProductsData();
+  },
 
+  async getProductsWithOrdersSmall() {
+      const data = await this.getProductsWithOrdersData();
+      return data.slice(0, 10);
+  },
 
-        ];
-    },
-
-
-
-    getProductsMini() {
-        return Promise.resolve(this.getProductsData().slice(0, 5));
-    },
-
-    getProductsSmall() {
-        return Promise.resolve(this.getProductsData().slice(0, 10));
-    },
-
-    getProducts() {
-        return Promise.resolve(this.getProductsData());
-    },
-
-    getProductsWithOrdersSmall() {
-        return Promise.resolve(this.getProductsWithOrdersData().slice(0, 10));
-    },
-
-    getProductsWithOrders() {
-        return Promise.resolve(this.getProductsWithOrdersData());
-    }
+  async getProductsWithOrders() {
+      return this.getProductsWithOrdersData();
+  }
 };
-

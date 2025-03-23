@@ -17,7 +17,7 @@ postRouter.post("/add", async (req, res) => {
 postRouter.get("/", async (req, res) => {
   try {
     let result = await Post.find();
-    res.send({ posts: result, msg: "All posts" });
+    res.send({ posts: result, });
   } catch (error) {
     console.log(error);
   }

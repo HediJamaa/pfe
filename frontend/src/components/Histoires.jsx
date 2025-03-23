@@ -1,21 +1,26 @@
-import React from 'react'
-import Cardeeee from './Cardeeee'
-import { useSelector } from 'react-redux';
+import React, { useEffect } from "react";
+import Cardpost from "./Cardpost";
+import { useSelector, useDispatch } from "react-redux";
+import { getpost } from "../JS/userSlice/postSlice";
 
 function Histoires() {
-      const poste = useSelector((state) => state.post?.postlist || []);
-      console.log(poste)
+  const dispatch = useDispatch();
+  const poste = useSelector((state) => state.post?.postlist || []);
+
+  useEffect(() => {
+    dispatch(getpost()); // جلب البيانات عند تحميل الصفحة
+  }, [dispatch]);
+
 
   return (
     <div>
-        sss
-        {poste.length > 0 ? (
-        poste.map((el) => <Cardeeee key={el.id} product={el} />)
+      {poste.length > 0 ? (
+        poste.map((el) => <Cardpost key={el._id} product={el} />)
       ) : (
-        <p>No post available</p>
+        <p>No posts available</p>
       )}
     </div>
-  )
+  );
 }
 
-export default Histoires
+export default Histoires;
