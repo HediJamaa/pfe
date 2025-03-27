@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Form from 'react-bootstrap/Form';
 import { addanimal } from '../JS/userSlice/animalSlice';
 import Swal from 'sweetalert2';
+import "./Bouton.css"
 
 
 function Ajouter() {
@@ -26,9 +27,7 @@ function Ajouter() {
                     backgroundSize: "cover",
                     backgroundPosition: "center",
                     width: "50%",
-                    // height: "85.6vh" 
-                    height: "1080px"
-
+                    height: "85.6vh" 
                 }}>
 
                 </div>
@@ -37,7 +36,7 @@ function Ajouter() {
                     backgroundSize: "cover",
                     backgroundPosition: "center",
                     width: "50%",
-                    height: ": 256.6vh",
+                    height: ": 100vh",
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'center',
@@ -45,11 +44,7 @@ function Ajouter() {
 
                 }}
                     className='inputt' >
-                    <div style={{ display: "flex", alignItems: "center", }}>
-                        <h1 style={{ color: "#eb0029", margin: 0 }}>Recipe</h1>
-                        <img className='mg' src='https://foodu-react.vercel.app/assets/img/shape/18.png' />
-                    </div>
-                    <h1>Add your recipe</h1>
+                    <h1>Add your Animal</h1>
 
                     <h5>Add title</h5>
                     <input type="text" onChange={(e) => setnewanimal({ ...newanimal, titel: e.target.value })} />
@@ -60,37 +55,29 @@ function Ajouter() {
                     <h5>Add description</h5>
                     <input type="text" onChange={(e) => setnewanimal({ ...newanimal, description: e.target.value })} />
 
-                    <h5>Ingredients <br /> separate each ingrediants by( ;)</h5>
-                    <textarea cols={10} rows="10" onChange={(e) => setnewanimal({ ...newanimal, Ingredients: e.target.value })}></textarea>
+                    <h5>Add name</h5>
+                    <input type="text" onChange={(e) => setnewanimal({ ...newanimal, name: e.target.value })} />
+                    
+                    <h5>Add race</h5>
+                    <input type="text" onChange={(e) => setnewanimal({ ...newanimal, race: e.target.value })} />
 
-                    <h5>Directions <br /> separate each Directions by (;)</h5>
-                    <textarea cols={10} rows="10" onChange={(e) => setnewanimal({ ...newanimal, Directions: e.target.value })}></textarea>
-                    <h5>Category</h5>
+                    <h5>Add gender</h5>
+                    <input type="text" onChange={(e) => setnewanimal({ ...newanimal, gender: e.target.value })} />
 
-
-                    {/* tzid mostatil */}
-                    {/* <input type='text' /> */}
-
-
-                    <Form.Select className="mt-4" aria-label="Default select example" onChange={(e) => setnewanimal({ ...newanimal, category: e.target.value })}>
-                        <option value="TUNISIAN">TUNISIAN</option>
-                        <option value="INTERNATIONAL">INTERNATIONAL</option>
-                        <option value="Breakfast">Breakfast </option>
-                        <option value="Lunch">Lunch</option>
-                        <option value="Dinner">Dinner</option>
-                        <option value="Desserts">Desserts</option>
-                    </Form.Select>
-                    <button onClick={() => {
-                        dispatch(addanimal(newanimal)); Swal.fire({
-                            position: "center",
-                            icon: "success",
-                            title: "Has been saved",
-                            showConfirmButton: false,
-                            timer: 1500
-                        });
-                    }}>
-                        Save Changes
-                    </button>
+                    <h5>Add location</h5>
+                    <input type="text" onChange={(e) => setnewanimal({ ...newanimal, location: e.target.value })} />
+                    
+                    <div class="wrapper">
+                        <a onClick={() => {
+                            dispatch(addanimal(newanimal)); Swal.fire({
+                                position: "center",
+                                icon: "success",
+                                title: "Has been saved",
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                        }}><span>Save Changes</span></a>
+                    </div>
                 </div>
             </div>
         </div>

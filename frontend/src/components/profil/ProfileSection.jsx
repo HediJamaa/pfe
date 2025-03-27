@@ -15,6 +15,9 @@ import { deleteuser, edituser } from "../../JS/userSlice/userSlice";
       email: user?.email || "",
       password: user?.password || "",
       img: user?.img || "",
+      phone: user?.phone || "",
+      postalCode: user?.postalCode,
+      location: user?.location,
     });
 
     useEffect(() => {
@@ -25,6 +28,9 @@ import { deleteuser, edituser } from "../../JS/userSlice/userSlice";
           email: user.email,
           password: user.password,
           img: user.img,
+          phone: user.phone,
+          postalCode: user.postalCode,
+          location: user.location,
         });
       }
     }, [user]);
@@ -52,7 +58,7 @@ import { deleteuser, edituser } from "../../JS/userSlice/userSlice";
     };
 
     return (
-      <div>
+      <div className="interface-profile">
         {/* Profile Section */}
         <div className="profile-header">
           <img
@@ -159,6 +165,7 @@ import { deleteuser, edituser } from "../../JS/userSlice/userSlice";
           <button className="btn-delete" onClick={handleDelete}>
             Delete Account
           </button>
+          {user.category === "admin" && <div>Haja taban ken lel admin</div>}
         </div>
       </div>
     );

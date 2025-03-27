@@ -20,6 +20,7 @@ import Myrecipes from "./components/profil/Myrecipes";
 import { useDispatch, useSelector } from "react-redux";
 import { getusers, userCurrent } from "./JS/userSlice/userSlice";
 import { getanimal } from "./JS/userSlice/animalSlice";
+import { getpost } from "./JS/userSlice/postSlice";
 
 
 
@@ -30,6 +31,7 @@ function App() {
     dispatch(userCurrent());
     dispatch(getanimal());
     dispatch(getusers());
+    dispatch(getpost());
   }, [ping])
 
 
@@ -44,7 +46,7 @@ function App() {
         <Route path="/Nous" element={<Pronous />} />
         <Route path="/Conseil" element={<Conseil />} />
         <Route path="/Ajouter" element={<Ajouter />} />
-        <Route path="/histoire" element={<Histoires />} />        
+        <Route path="/histoire" element={<Histoires ping={ping} setping={setping} />} />        
         <Route path="/Adoption" element={<Adoption />} />
         <Route element={<PrivateRoute />}>
           <Route path="/profil/" element={<Profil />}>

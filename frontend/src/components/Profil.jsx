@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import "./UserProfile.css";
+import "./Footer.css";
 import { deleteuser, edituser, logout } from "../JS/userSlice/userSlice";
 
 const Profil = () => {
@@ -57,27 +58,29 @@ const Profil = () => {
     <div className="user-profile">
       {/* Sidebar */}
       <div className="sidebar">
-        <h4 className="sidebar-title">User Profile</h4>
+        <h4 className="sidebar-title">.</h4>
         <ul className="nav-list">
           <li className="nav-item">
             <Link to="info" >
-            <a className="nav-link active">
-              <FaBell className="icon" /> User info
+              <a className="nav-link active">
+                <FaBell className="icon" /> User info
               </a>
             </Link>
           </li>
-          <li className="nav-item">
+          {user?.category === "admin" &&
+           <li className="nav-item">
             <Link to={"Favorites"}>
               <a className="nav-link">
                 <FaHeart className="icon" /> Favorites
               </a>
             </Link>
-          </li>
+          </li>}
+
           <li className="nav-item">
             <Link to={"Myrecipes"}>
-            <a className="nav-link">
-              <FaStar className="icon" /> My recipes
-            </a>
+              <a className="nav-link">
+                <FaStar className="icon" /> My recipes
+              </a>
             </Link>
           </li>
           <li className="nav-item">

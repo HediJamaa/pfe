@@ -22,10 +22,17 @@ const UserSchema = new schema({
     type: String,
     default: "user",
   },
-
-  img: {
+    phone: {
     type: String,
+    required: true,
+  },  location: {
+    type: String,
+    required: true,
+  },  postalCode: {
+    type: String,
+    required: true,
   },
+  img: String,
 });
 
 module.exports = mongoose.model("user", UserSchema);

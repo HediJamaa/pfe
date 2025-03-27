@@ -16,6 +16,10 @@ function Info() {
         {user?.name} {user?.lastname}{" "}
       </h1>
       <h1>{user?.email} </h1>
+      <h1>{user?.phone} </h1>
+      <h1>{user?.location} </h1>
+      <h1>{user?.postalCode} </h1>
+
     </div>
   );
 }

@@ -2,8 +2,9 @@ import React, { useEffect } from "react";
 import Cardpost from "./Cardpost";
 import { useSelector, useDispatch } from "react-redux";
 import { getpost } from "../JS/userSlice/postSlice";
+import Modal from "./Modal";
 
-function Histoires() {
+function Histoires({ ping, setping}) {
   const dispatch = useDispatch();
   const poste = useSelector((state) => state.post?.postlist || []);
 
@@ -14,8 +15,9 @@ function Histoires() {
 
   return (
     <div>
+      <Modal ping={ping} setping={setping} />
       {poste.length > 0 ? (
-        poste.map((el) => <Cardpost key={el._id} product={el} />)
+        poste.map((el) => <Cardpost  product={el} />)
       ) : (
         <p>No posts available</p>
       )}

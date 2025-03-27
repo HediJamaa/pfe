@@ -1,73 +1,63 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { editanimal } from "../JS/userSlice/animalSlice";
+import { addpost } from "../JS/userSlice/postSlice";
+import Swal from "sweetalert2";
 
-function Example({animal,ping, setping }) {
+function Modal({ animal, ping, setping }) {
   const [show, setShow] = useState(false);
   const dispatch = useDispatch();
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const [edited, setEdited] = useState({});
 
+  // Déclaration de l'état 'newpost' pour l'ajout du post
+  const [newpost, setnewpost] = useState({
+    title: "",
+    content: "",
+    Crea: "",
+  });
+
+  // Utilisation de useEffect pour mettre à jour les valeurs de 'newpost' avec les données de l'animal
   useEffect(() => {
     if (animal) {
-      setEdited({
-        titel: animal.titel || "",
-        img: animal.img || "",
-        description: animal.description || "",
-        Ingredients: animal.Ingredients || "",
-        Directions: animal.Directions || "",
+      setnewpost({
+        title: animal.title || "",
+        content: animal.content || "",
+        Crea: animal.Crea || "",
       });
     }
   }, [animal, show]);
 
   return (
     <>
-      <button onClick={handleShow} style={styles.button}>
-        Edit
+      <button onClick={handleShow} style={styles.button} disabled={show}>
+        Add
       </button>
 
       {show && (
-        <div className="modalinput" style={styles.modalOverlay}>
-          <div style={styles.modal}>
-            <h2>Edit animal</h2>
+        <div className="modalinput" style={styles.modalOverlay} onClick={handleClose}>
+          <div style={styles.modal} onClick={(e) => e.stopPropagation()}>
+            <h2>Add Post</h2>
             <label>Title</label>
             <input
               type="text"
-              value={edited.titel}
-              onChange={(e) => setEdited({ ...edited, titel: e.target.value })}
+              value={newpost.title}
+              onChange={(e) => setnewpost({ ...newpost, title: e.target.value })}
               style={styles.input}
+              autoFocus
             />
-            <label>Image URL</label>
+            <label>Content</label>
             <input
               type="text"
-              value={edited.img}
-              onChange={(e) => setEdited({ ...edited, img: e.target.value })}
+              value={newpost.content}
+              onChange={(e) => setnewpost({ ...newpost, content: e.target.value })}
               style={styles.input}
             />
-            <label>Description</label>
-            <textarea
-              value={edited.description}
-              onChange={(e) =>
-                setEdited({ ...edited, description: e.target.value })
-              }
-              style={styles.textarea}
-            />
-            <label>Ingredients</label>
-            <textarea
-              value={edited.Ingredients}
-              onChange={(e) =>
-                setEdited({ ...edited, Ingredients: e.target.value })
-              }
-              style={styles.textarea}
-            />
-            <label>Directions</label>
-            <textarea
-              value={edited.Directions}
-              onChange={(e) =>
-                setEdited({ ...edited, Directions: e.target.value })
-              }
-              style={styles.textarea}
+            <label>Crea</label>
+            <input
+              type="text"
+              value={newpost.Crea}
+              onChange={(e) => setnewpost({ ...newpost, Crea: e.target.value })}
+              style={styles.input}
             />
             <div style={styles.buttonGroup}>
               <button onClick={handleClose} style={styles.cancelButton}>
@@ -75,8 +65,15 @@ function Example({animal,ping, setping }) {
               </button>
               <button
                 onClick={() => {
-                  dispatch(editanimal({ id: animal._id, edited }));
+                  dispatch(addpost(newpost));
                   setping(!ping);
+                  Swal.fire({
+                    position: "center",
+                    icon: "success",
+                    title: "Post has been saved",
+                    showConfirmButton: false,
+                    timer: 1500
+                  });
                   handleClose();
                 }}
                 style={styles.saveButton}
@@ -91,7 +88,7 @@ function Example({animal,ping, setping }) {
   );
 }
 
-// تعريف الأنماط CSS داخل كائن JavaScript
+// Styles CSS
 const styles = {
   button: {
     padding: "10px 15px",
@@ -101,10 +98,11 @@ const styles = {
     borderRadius: "5px",
     cursor: "pointer",
     margin: "5px",
+    transition: "0.3s",
   },
-  modalOverlay : {
+  modalOverlay: {
     position: "fixed",
-    zIndex: 100000000000, // يجب استخدام "zIndex" بدلاً من "z-index"
+    zIndex: 1000,
     top: 0,
     left: 0,
     width: "100%",
@@ -129,13 +127,6 @@ const styles = {
     border: "1px solid #ccc",
     borderRadius: "5px",
   },
-  textarea: {
-    width: "100%",
-    padding: "8px",
-    border: "1px solid #ccc",
-    borderRadius: "5px",
-    height: "80px",
-  },
   buttonGroup: {
     display: "flex",
     justifyContent: "space-between",
@@ -159,4 +150,4 @@ const styles = {
   },
 };
 
-export default Example;
+export default Modal;
