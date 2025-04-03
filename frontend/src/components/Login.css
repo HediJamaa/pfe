@@ -78,7 +78,19 @@
 .login-register a:hover {
   text-decoration: underline;
 }
-
+.eye-icon {
+  position: absolute;
+  right: 39%;
+  /* يمكنك تغيير هذه القيمة لتحريك العين أفقيًا */
+  top: 53%;
+  transform: translateY(-50%);
+  /* لتوسيط الأيقونة عموديًا */
+  cursor: pointer;
+  transition: 0.3s;
+}
+.password-container{
+  height: 100px;
+}
 
 
 

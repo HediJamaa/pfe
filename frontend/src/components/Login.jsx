@@ -49,7 +49,12 @@ function Login() {
               required
               onChange={(e) => setLogin({ ...login, password: e.target.value })}
             />
-            <span className="eye-icon" onClick={() => setShowPassword(!showPassword)}>
+            <span
+              className="eye-icon"
+              onClick={() => {
+                setShowPassword(!showPassword);
+              }}
+            >
               {showPassword ? <FaEyeSlash /> : <FaEye />}
             </span>
           </div>

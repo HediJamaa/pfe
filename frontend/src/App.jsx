@@ -15,7 +15,7 @@ import Ajouter from "./components/Ajouter";
 import Histoires from "./components/Histoires";
 import ProfileSection from "./components/profil/ProfileSection";
 import Info from "./components/profil/Info";
-import Favorites from "./components/profil/Favorites";
+import Les_utlisateurs from "./components/profil/Les_utlisateurs";
 import Myrecipes from "./components/profil/Myrecipes";
 import { useDispatch, useSelector } from "react-redux";
 import { getusers, userCurrent } from "./JS/userSlice/userSlice";
@@ -52,7 +52,7 @@ function App() {
           <Route path="/profil/" element={<Profil />}>
             <Route path="info" element={<Info />} />
             <Route path="" element={<ProfileSection />} />
-            <Route path="favorites" element={<Favorites ping={ping} setping={setping}   />} />
+            <Route path="Les_utlisateurs" element={<Les_utlisateurs ping={ping} setping={setping}   />} />
             <Route path="Myrecipes" element={<Myrecipes ping={ping} setping={setping} />} />
           </Route>
         </Route>

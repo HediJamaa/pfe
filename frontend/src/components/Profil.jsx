@@ -69,9 +69,9 @@ const Profil = () => {
           </li>
           {user?.category === "admin" &&
            <li className="nav-item">
-            <Link to={"Favorites"}>
+              <Link to={"Les_utlisateurs"}>
               <a className="nav-link">
-                <FaHeart className="icon" /> Favorites
+                  <FaHeart className="icon" /> Les_utlisateurs
               </a>
             </Link>
           </li>}

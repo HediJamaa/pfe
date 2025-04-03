@@ -5,6 +5,7 @@ import { getpost } from "../JS/userSlice/postSlice";
 import Modal from "./Modal";
 
 function Histoires({ ping, setping}) {
+  const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
   const poste = useSelector((state) => state.post?.postlist || []);
 
@@ -15,12 +16,16 @@ function Histoires({ ping, setping}) {
 
   return (
     <div>
+      {user && (
       <Modal ping={ping} setping={setping} />
+      )}
+      <div style={{display:"flex",flexWrap:"wrap",justifyContent:"space-around",}}>
       {poste.length > 0 ? (
         poste.map((el) => <Cardpost  product={el} />)
       ) : (
         <p>No posts available</p>
       )}
+      </div>
     </div>
   );
 }

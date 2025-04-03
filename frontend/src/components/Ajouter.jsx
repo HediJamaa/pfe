@@ -21,13 +21,13 @@ function Ajouter() {
     })
     return (
         <div>
-            <div style={{ display: "flex", marginBottom: 290 }}>
+            <div style={{ display: "flex" }}>
                 <div style={{
                     backgroundImage: `url("https://foodu-react.vercel.app/assets/img/banner/1.jpg")`,
                     backgroundSize: "cover",
                     backgroundPosition: "center",
                     width: "50%",
-                    height: "85.6vh" 
+                    height: "110vh" 
                 }}>
 
                 </div>
