@@ -12,14 +12,15 @@ export const userRegister = createAsyncThunk("user/register", async (user) => {
     console.log(error);
   }
 });
-export const userlogin = createAsyncThunk("user/login", async (user) => {
+export const userlogin = createAsyncThunk("user/login", async (user, { rejectWithValue }) => {
   try {
     let response = await axios.post("http://localhost:5000/user/login", user);
-    return await response;
+    return response.data; // إعادة بيانات المستخدم عند النجاح
   } catch (error) {
-    console.log(error);
+    return rejectWithValue(error.response?.data || { msg: "Login failed! Please try again." });
   }
 });
+
 export const userCurrent = createAsyncThunk("user/current", async () => {
   try {
     let response = await axios.get("http://localhost:5000/user/current", {
@@ -106,13 +107,15 @@ export const userSlice = createSlice({
         state.status = "pending";
       })
       .addCase(userlogin.fulfilled, (state, action) => {
-        state.status = "successsss";
-        state.user = action.payload.data.user;
-        localStorage.setItem("token", action.payload.data.token);
+        state.status = "success";
+        state.user = action.payload.user;
+        localStorage.setItem("token", action.payload.token);
+        state.error = null; // تصفير الخطأ عند النجاح
       })
-      .addCase(userlogin.rejected, (state) => {
+      .addCase(userlogin.rejected, (state, action) => {
         state.status = "fail";
-      })
+        state.error = action.payload?.msg || "Login failed! Please try again.";
+      })    
       .addCase(userCurrent.pending, (state) => {
         state.status = "pending";
       })

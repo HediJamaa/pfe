@@ -56,12 +56,12 @@ router.post("/login", loginRules(), validation, async (req, res) => {
     const searchedUser = await User.findOne({ email });
     //find if the email not exist
     if (!searchedUser) {
-      return res.status(400).send({ msg: "Bad credential" });
+      return res.status(400).send({ msg: "Invalid email" });
     }
     //if password are equal
     const match = await bcrypt.compare(password, searchedUser.password);
     if (!match) {
-      return res.status(400).send({ msg: "Bad credential" });
+      return res.status(400).send({ msg: "Invalid password" });
     }
     //creer un token
     const payload = {

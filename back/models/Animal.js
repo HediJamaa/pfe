@@ -17,6 +17,7 @@ const animalsSchema = new schema({
   user: String,
   Adoption: Boolean,
   inventoryStatus:String,
+  idanimal:String,
 
 });
 

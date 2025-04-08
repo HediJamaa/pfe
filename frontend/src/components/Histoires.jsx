@@ -7,7 +7,7 @@ import Modal from "./Modal";
 function Histoires({ ping, setping}) {
   const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
-  const poste = useSelector((state) => state.post?.postlist || []);
+  const poste = useSelector((state) => state.post?.postlist || []);  
 
   useEffect(() => {
     dispatch(getpost()); // جلب البيانات عند تحميل الصفحة

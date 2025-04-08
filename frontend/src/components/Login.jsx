@@ -5,6 +5,7 @@ import { userlogin } from "../JS/userSlice/userSlice";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 function Login() {
+
   const navigate = useNavigate();
   const [login, setLogin] = useState({
     email: "",
@@ -13,21 +14,26 @@ function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
 
+  const [errorMessage, setErrorMessage] = useState("");
+
   const handleLogin = async (e) => {
     e.preventDefault();
     if (!login.email || !login.password) {
-      alert("Please fill in all fields");
+      setErrorMessage("Please fill in all fields");
       return;
     }
+
     const result = await dispatch(userlogin(login));
+
     if (result.payload && !result.error) {
       setTimeout(() => {
         navigate("/");
       }, 100);
     } else {
-      console.error("Login failed!");
+      setErrorMessage(result.payload?.msg || "Login failed! Please try again.");
     }
   };
+
 
   return (
     <div className="login-page">
@@ -57,6 +63,8 @@ function Login() {
             >
               {showPassword ? <FaEyeSlash /> : <FaEye />}
             </span>
+            {errorMessage && <p className="error-message">{errorMessage}</p>}
+
           </div>
           <label className="login-checkbox">
             <input type="checkbox" value="remember-me" /> Remember me
