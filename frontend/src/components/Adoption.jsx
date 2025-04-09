@@ -77,7 +77,7 @@ export default function NumScrollDemo() {
       </div>
       <div className="card-animal" >
         {Animals.length > 0 ? (
-          Animals.map((el) => <Cardanimal key={el.id} product={el} />)
+          Animals.map((el) => <Cardanimal key={el.id} animal={el} />)
         ) : (
           <p>No animals available</p>
         )}

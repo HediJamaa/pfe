@@ -5,7 +5,7 @@ import { userlogin } from "../JS/userSlice/userSlice";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 function Login() {
-
+  
   const navigate = useNavigate();
   const [login, setLogin] = useState({
     email: "",
@@ -22,9 +22,9 @@ function Login() {
       setErrorMessage("Please fill in all fields");
       return;
     }
-
+  
     const result = await dispatch(userlogin(login));
-
+  
     if (result.payload && !result.error) {
       setTimeout(() => {
         navigate("/");
@@ -33,7 +33,7 @@ function Login() {
       setErrorMessage(result.payload?.msg || "Login failed! Please try again.");
     }
   };
-
+  
 
   return (
     <div className="login-page">

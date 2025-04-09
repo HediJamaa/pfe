@@ -18,7 +18,6 @@ const animalsSchema = new schema({
   Adoption: Boolean,
   inventoryStatus:String,
   idanimal:String,
-
 });
 
 const Animals = mongoose.model("Animals", animalsSchema);

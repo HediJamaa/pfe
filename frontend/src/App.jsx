@@ -16,11 +16,13 @@ import Histoires from "./components/Histoires";
 import ProfileSection from "./components/profil/ProfileSection";
 import Info from "./components/profil/Info";
 import Les_utlisateurs from "./components/profil/Les_utlisateurs";
-import Myrecipes from "./components/profil/Myrecipes";
 import { useDispatch, useSelector } from "react-redux";
 import { getusers, userCurrent } from "./JS/userSlice/userSlice";
 import { getanimal } from "./JS/userSlice/animalSlice";
 import { getpost } from "./JS/userSlice/postSlice";
+import All from "./components/profil/Les_animaux";
+import Mes_animaux from "./components/profil/Mes_animaux";
+import Les_animaux from "./components/profil/Les_animaux";
 
 
 
@@ -53,7 +55,8 @@ function App() {
             <Route path="info" element={<Info />} />
             <Route path="" element={<ProfileSection />} />
             <Route path="Les_utlisateurs" element={<Les_utlisateurs ping={ping} setping={setping}   />} />
-            <Route path="Myrecipes" element={<Myrecipes ping={ping} setping={setping} />} />
+            <Route path="Les_animaux" element={<Les_animaux ping={ping} setping={setping}   />} />            
+            <Route path="Mes_animaux" element={<Mes_animaux ping={ping} setping={setping} />} />
           </Route>
         </Route>
       </Routes>

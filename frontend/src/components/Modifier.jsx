@@ -21,7 +21,6 @@ function Modifier({ animal, ping, setping }) {
                 gender: animal.gender || "",
                 location: animal.location || "",
                 directions: animal.directions || "",
-                Adoption: animal.Adoption || "",
                 inventoryStatus: animal.inventoryStatus || "",
             });
         }
