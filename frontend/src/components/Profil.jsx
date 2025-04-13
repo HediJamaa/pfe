@@ -60,10 +60,10 @@ const Profil = () => {
     <div className="user-profile">
       {/* Sidebar */}
       <div className="sidebar">
-        <h4 className="sidebar-title">.</h4>
         <ul className="nav-list">
   <li className="nav-item">
     <NavLink
+      style={{ marginTop: 60 }} 
       to="info"
       className={({ isActive }) =>
         isActive ? "nav-link active" : "nav-link"

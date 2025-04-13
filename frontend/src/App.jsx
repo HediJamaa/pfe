@@ -23,6 +23,7 @@ import { getpost } from "./JS/userSlice/postSlice";
 import All from "./components/profil/Les_animaux";
 import Mes_animaux from "./components/profil/Mes_animaux";
 import Les_animaux from "./components/profil/Les_animaux";
+import Ingredients from "./components/Ingredients";
 
 
 
@@ -50,6 +51,7 @@ function App() {
         <Route path="/Ajouter" element={<Ajouter />} />
         <Route path="/histoire" element={<Histoires ping={ping} setping={setping} />} />        
         <Route path="/Adoption" element={<Adoption />} />
+        <Route path="/animaux/:id" element={<Ingredients ping={ping} setping={setping}  />} />
         <Route element={<PrivateRoute />}>
           <Route path="/profil/" element={<Profil />}>
             <Route path="info" element={<Info />} />

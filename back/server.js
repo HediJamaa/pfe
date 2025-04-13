@@ -18,6 +18,7 @@ app.use("/animals", require("./routes/animal"));
 app.use("/post", require("./routes/post"));
 
 
+
 //server
 const PORT=process.env.PORT;
 app.listen(PORT,(err)=> err ?

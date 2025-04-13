@@ -6,6 +6,7 @@ import { ProductService } from "./service/ProductService";
 import { useDispatch, useSelector } from "react-redux";
 import { getanimal } from "../JS/userSlice/animalSlice";
 import Cardanimal from "./Cardanimal";
+import { Link } from "react-router";
 
 export default function NumScrollDemo() {
   const [products, setProducts] = useState([]);
@@ -46,7 +47,11 @@ export default function NumScrollDemo() {
         <h6 style={{justifyContent:"center"}} className="mt-0 mb-3 animal-desc"><h1 className='h1name'>race:&nbsp;</h1>{product.race}</h6>
         <Tag value={product.inventoryStatus} severity={getSeverity(product)} />
         <div className="mt-5 flex flex-wrap gap-2 justify-content-center">
+
+          <Link to={`/animaux/${product._id}`}>
           <Button icon="pi pi-star-fill" className="p-button-success p-button-rounded" />
+          </Link>
+
         </div>
       </div>
     </div>
@@ -64,7 +69,7 @@ export default function NumScrollDemo() {
 
   return (
     <>
-      <div style={{ padding: "0 200px" }} className="card">
+      <div style={{ padding: "0 200px", background:"#efeff1" }} className="card">
         <Carousel
           autoplayInterval={5000}
           circular={true}
