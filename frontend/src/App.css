@@ -82,8 +82,10 @@ body {
 }
 /* card */
 .animal-card{
-  width: 250px;
-  height: 389px;
+  overflow: hidden;
+  border-radius: 5px;
+  width: 224px;
+  height: 416px;
   margin: 20px;
   display: flex;
   flex-direction: column;
@@ -104,14 +106,21 @@ margin-top: 100px;
 .h1name{
   color: rgb(0, 0, 0);
   font-size:medium;
+  margin-bottom: 10px;
 }
 .animal-desc{
   display: flex;
   flex-direction: row;
 }
 .animal-sec{
-  margin-left: 10px;
-  margin-bottom: 20px;
+  display: flex;
+  justify-content: end;
+  padding-bottom: 20px;
+  flex-direction: column;
+  align-items: center;
+  width: 224px;
+  height: 180px;
+  background: #ffffff;
 }
 .error-message{
   color: red;
@@ -119,4 +128,41 @@ margin-top: 100px;
 .modalinput input{
   margin: 0px !important;
   height: 30px;
+}
+.Group  {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 880px;
+  background: white;
+
+}
+.Group div {
+width: 350px;
+height: 120px;
+background: #ffff;
+border-radius: 10px;
+margin: 20px 10px;
+display: flex;
+flex-direction: column;
+padding-left: 10px;
+padding-top: 10px;
+-webkit-box-shadow: 0px 0px 20px -7px rgba(0, 0, 0, 0.58);
+  -moz-box-shadow: 0px 0px 20px -7px rgba(0, 0, 0, 0.58);
+  box-shadow: 0px 0px 20px -7px rgba(0, 0, 0, 0.58);
+
+}
+
+.empty-favorites-message {
+  text-align: center;
+  font-size: 18px;
+  color: #555 !important;
+  margin-top: 20px;
+}
+.delete-button{
+  margin: 5px;
+  background: red;
+  border: none;
+  color: #fff;
+  border-radius: 5px;
 }

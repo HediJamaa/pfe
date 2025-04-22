@@ -40,11 +40,13 @@ export default function NumScrollDemo() {
   const productTemplate = (product) => (
     <div className="border-1 surface-border border-round m-2 text-center py-5 px-3">
       <div style={{ display: "flex", justifyContent: "center" }} className="mb-3">
-        <img src={product.img} alt={product.name} className="w-6 shadow-2" />
+        <img style={{width:220,height:200}} src={`http://localhost:5000/uploads/${product.img}`} alt={product.name} className=" shadow-2" />
       </div>
       <div>
         <h4 className="mb-1">{product.name}</h4>
-        <h6 style={{justifyContent:"center"}} className="mt-0 mb-3 animal-desc"><h1 className='h1name'>race:&nbsp;</h1>{product.race}</h6>
+        <h6 style={{justifyContent: "center"}} className="mt-0 mb-3 animal-desc">
+  <span className='h1name'>race:&nbsp;</span>{product.race}
+</h6>
         <Tag value={product.inventoryStatus} severity={getSeverity(product)} />
         <div className="mt-5 flex flex-wrap gap-2 justify-content-center">
 
@@ -65,7 +67,12 @@ export default function NumScrollDemo() {
 
 
   // mapping ✅ استخدم optional chaining لتجنب الأخطاء
-  const Animals = useSelector((state) => state.animal?.animalList || []);
+    const [showAll, setShowAll] = useState(false); // ✅ جديد
+  
+    // ...
+  
+    const Animals = useSelector((state) => state.animal?.animalList || []);
+    const visibleAnimals = showAll ? Animals : Animals.slice(0, 0); // ✅ جديد
 
   return (
     <>
@@ -79,14 +86,26 @@ export default function NumScrollDemo() {
           responsiveOptions={responsiveOptions}
           itemTemplate={productTemplate}
         />
+        <Button
+          label={showAll ? "Show Less" : "Show More"}
+          onClick={() => setShowAll(!showAll)}
+          className="p-button-rounded p-button-outlined"
+        />
       </div>
-      <div className="card-animal" >
-        {Animals.length > 0 ? (
-          Animals.map((el) => <Cardanimal key={el.id} animal={el} />)
-        ) : (
-          <p>No animals available</p>
-        )}
-      </div>
+      <div className="card-animal">
+  {visibleAnimals.length > 0 ? (
+    visibleAnimals.map((el) => <Cardanimal key={el.id} animal={el} />)
+  ) : (
+    <p>No animals available</p>
+  )}
+
+  {/* ✅ الزرّ يظهر إذا فما أكثر من 6 حيوانات */}
+  {Animals.length > 4 && (
+    <div style={{ textAlign: 'center', marginTop: '20px' }}>
+    </div>
+  )}
+</div>
+
     </>
   );
 }

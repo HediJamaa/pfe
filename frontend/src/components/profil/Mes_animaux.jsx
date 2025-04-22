@@ -34,36 +34,24 @@ function Mes_animaux({ ping, setping }) {
         ) : (
           Animals?.filter((el) => el.idanimal === user?._id).map((el) => (
             <div key={el._id} className="animal-card">
-              <img style={{ width: 250 }} src={el.img} alt={el.titel} />
+              <img style={{ width: 250,height:250 }} src={`http://localhost:5000/uploads/${el.img}`} alt={el.titel} />
               <div className="animal-sec">
-                <h4 className="animal-title" style={{ textAlign: "center", color: "black" }}>
-                  {el.titel}
-                </h4>
                 <p className="animal-desc">
-                  <strong className="h1name">Description:&nbsp;</strong>{el.description}
+                  <strong className="h1name">Name:&nbsp;</strong><span style={{ color: "#606060" }}>{el.name}</span>
                 </p>
                 <p className="animal-desc">
-                  <strong className="h1name">Name:&nbsp;</strong>{el.name}
+                  <strong className="h1name">Gender:&nbsp;</strong><span style={{ color: "#606060" }}>{el.gender}</span>
                 </p>
-                <p className="animal-desc">
-                  <strong className="h1name">Race:&nbsp;</strong>{el.race}
-                </p>
-                <p className="animal-desc">
-                  <strong className="h1name">Gender:&nbsp;</strong>{el.gender}
-                </p>
-                <p className="animal-desc">
-                  <strong className="h1name">Location:&nbsp;</strong>{el.location}
-                </p>
+                <div style={{display:"flex",justifyContent:"space-around",width:"100%"}}> 
+                 <Modifier animal={el} ping={ping} setping={setping} />
+
+                  <button
+                    onClick={() => handleDelete(el?._id)}
+                    className="delete-button"
+                  >
+                    Supprimer
+                  </button></div>
               </div>
-
-              <Modifier animal={el} ping={ping} setping={setping} />
-
-              <button
-                onClick={() => handleDelete(el?._id)}
-                className="delete-button"
-              >
-                X
-              </button>
             </div>
           ))
         )}
