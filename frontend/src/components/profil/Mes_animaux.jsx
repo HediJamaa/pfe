@@ -3,6 +3,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import { deleteanimal } from "../../JS/userSlice/animalSlice";
+import { Link } from "react-router";
 
 function Mes_animaux({ ping, setping }) {
   const user = useSelector((state) => state.user.user);
@@ -34,7 +35,7 @@ function Mes_animaux({ ping, setping }) {
         ) : (
           Animals?.filter((el) => el.idanimal === user?._id).map((el) => (
             <div key={el._id} className="animal-card">
-              <img style={{ width: 250,height:250 }} src={`http://localhost:5000/uploads/${el.img}`} alt={el.titel} />
+              <Link to={`/animaux/${el._id}`}><img style={{ width: 250,height:250 }} src={`http://localhost:5000/uploads/${el.img}`} alt={el.titel} /></Link>
               <div className="animal-sec">
                 <p className="animal-desc">
                   <strong className="h1name">Name:&nbsp;</strong><span style={{ color: "#606060" }}>{el.name}</span>

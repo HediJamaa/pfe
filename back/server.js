@@ -18,6 +18,8 @@ app.use("/animals", require("./routes/animal"));
 app.use("/post", require("./routes/post"));
 app.use("/uploads", express.static("uploads"));
 app.use("/favoris",require("./routes/favoris"))
+app.use('/api/adoption',  require('./routes/adoption'));
+
 
 
 

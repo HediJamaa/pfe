@@ -1,0 +1,15 @@
+.contentdiv {
+    height: 98px;
+    line-height: 78px;
+    background: url("bg-blog-heading.gif");
+    background-position: top center;
+    background-repeat: no-repeat;
+}
+
+.nakcha {
+    background: url("bg-blog-heading.gif");
+    width: 50%;
+    height: 500px;
+    background-position: top center;
+    background-repeat: no-repeat;
+}

@@ -8,6 +8,7 @@
   background-color: #b6c7db;
   padding: 20px;
   height: 100vh;
+  position:fixed;
 }
 
 .sidebar-title {
@@ -60,6 +61,7 @@
 .profile-section {
   flex: 1;
   padding: 20px;
+  margin-left: 250px;
 }
 
 .profile-header {

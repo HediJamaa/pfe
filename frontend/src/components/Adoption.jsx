@@ -93,14 +93,13 @@ export default function NumScrollDemo() {
         />
       </div>
       <div className="card-animal">
-  {visibleAnimals.length > 0 ? (
-    visibleAnimals.map((el) => <Cardanimal key={el.id} animal={el} />)
-  ) : (
-    <p>No animals available</p>
-  )}
+      {visibleAnimals.length > 0 ? (
+  visibleAnimals.map((el) => <Cardanimal key={el.id} animal={el} />)
+) : null}
+
 
   {/* ✅ الزرّ يظهر إذا فما أكثر من 6 حيوانات */}
-  {Animals.length > 4 && (
+  {Animals.length > 0 && (
     <div style={{ textAlign: 'center', marginTop: '20px' }}>
     </div>
   )}
