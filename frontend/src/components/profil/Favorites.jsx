@@ -29,7 +29,7 @@ function Favorites({ ping, setping }) {
     const handleDelete = (elId, e) => {
         e.stopPropagation(); // Prevent the link from being followed
         dispatch(deletefavoris(elId));
-        setping(!ping);
+        setping(prev => !prev);
     };
 
     return (
@@ -57,13 +57,14 @@ function Favorites({ ping, setping }) {
                             }}
                         >
                             <Link
-                                to={user ? `/product/${el.idurl}` : "#"}
+                                to={user ? `/animaux/${el.idurl}` : "#"}
                                 onClick={(e) => handleClick(e, el)}
                             >
                                 <img
-                                    src={el?.imgproduct}
+                                style={{ width: "200px", height: "200px" }}
+                                    src={`http://localhost:5000/uploads/${el.imganimal}`}
                                     className="favorite-image"
-                                    alt={el?.nameproduct}
+                                    alt={el?.name}
                                 />
                             </Link>
                             <h5 className="favorite-title">{el?.nameuser}</h5>
@@ -74,13 +75,8 @@ function Favorites({ ping, setping }) {
                                 >
                                     🤍
                                 </button>
-                                <Link
-                                    to={user ? `/animaux/${el.idurl}` : "#"}
-                                    onClick={(e) => handleClick(e, el)}
-                                >
-                                    <button className="show-more-button">Show more</button>
-                                </Link>
                             </div>
+
                         </div>
                     ))
             )}

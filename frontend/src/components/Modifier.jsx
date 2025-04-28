@@ -20,7 +20,6 @@ function Modifier({ animal, ping, setping }) {
                 age: animal.age || "",
                 gender: animal.gender || "",
                 location: animal.location || "",
-                directions: animal.directions || "",
                 inventoryStatus: animal.inventoryStatus || "",
             });
         }
@@ -100,7 +99,7 @@ function Modifier({ animal, ping, setping }) {
                             <button
                                 onClick={() => {
                                     dispatch(editanimal({ id: animal._id, edited }));
-                                    setping(!ping);
+                                    setping(prev => !prev);
                                     handleClose();
                                 }}
                                 style={styles.saveButton}

@@ -1,0 +1,96 @@
+/* Bouton.css */
+
+/* Titre */
+.inputt h1 {
+    font-size: 2rem !important;
+    margin-bottom: 1rem ;
+    color: #333 !important;
+    text-align: center !important;
+    /* Centrer le titre */
+}
+
+/* Sous-titre */
+.inputt h5 {
+    margin-top: 1rem ;
+    margin-bottom: 0.5rem ;
+    color: #555 !important;
+    font-weight: 600 !important;
+    /* Mettre le sous-titre en gras pour plus de visibilité */
+}
+
+/* Inputs */
+.inputt input[type="text"],
+.inputt input[type="file"] {
+    width: 100% !important;
+    padding: 0.7rem ;
+    border: 1px solid #ccc !important;
+    border-radius: 8px ;
+    font-size: 1rem !important;
+    background-color: #fff !important;
+    transition: 0.3s !important;
+    box-sizing: border-box !important;
+    /* S'assurer que le padding et la bordure ne dépassent pas la largeur */
+}
+
+/* Focus sur les inputs */
+.inputt input[type="text"]:focus,
+.inputt input[type="file"]:focus {
+    border-color: #4CAF50 !important;
+    outline: none !important;
+}
+
+/* Wrapper pour centrer le bouton */
+.wrapper {
+    display: flex !important;
+    justify-content: center !important;
+    margin-top: 2rem ;
+}
+
+/* Style du bouton */
+.wrapper a {
+    background-color: #4CAF50 !important;
+    color: white !important;
+    padding: 0.8rem 2rem !important;
+    border-radius: 8px ;
+    text-decoration: none !important;
+    font-size: 1.1rem !important;
+    font-weight: bold !important;
+    transition: 0.3s !important;
+    cursor: pointer !important;
+    text-align: center !important;
+    display: inline-block !important;
+    /* Pour que le texte du bouton soit centré */
+}
+
+/* Hover sur le bouton */
+.wrapper a:hover {
+    background-color: #45a049 !important;
+}
+
+/* Responsiveness : Pour que le formulaire soit bien réactif */
+.inputt {
+    background-color: #efeff1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    padding: 30px !important;
+    max-width: 600px !important;
+    /* Limiter la largeur du formulaire */
+    margin: 0 auto ;
+    /* Centrer le formulaire horizontalement */
+    border-radius: 10px ;
+    /* Coins arrondis */
+}
+
+
+.inputt h5 span {
+    color: red !important;
+}
+
+/* Ajout d'un peu de padding et de marges pour plus d'espace */
+.inputt input {
+    margin-bottom: 0px ;
+}
+.p-inputtext {
+    border-radius: 8px 0 0 8px !important;
+}

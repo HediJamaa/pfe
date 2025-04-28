@@ -8,9 +8,6 @@ const favorisSchema = new schema({
     nameanimal:String,
     imganimal:String,
     description:String,
-    Ingredients:Array,
-    Directions:Array,
-    chef:String,
     idurl:String,
 });
 

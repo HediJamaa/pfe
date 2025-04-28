@@ -13,7 +13,6 @@ function Modal({ animal, ping, setping }) {
   const [newpost, setnewpost] = useState({
     title: "",
     content: "",
-    Crea: "",
   });
 
   // Utilisation de useEffect pour mettre à jour les valeurs de 'newpost' avec les données de l'animal
@@ -22,8 +21,7 @@ function Modal({ animal, ping, setping }) {
       setnewpost({
         title: animal.title || "",
         content: animal.content || "",
-        Crea: animal.Crea || "",
-      });
+            });
     }
   }, [animal, show]);
 
@@ -52,13 +50,6 @@ function Modal({ animal, ping, setping }) {
               onChange={(e) => setnewpost({ ...newpost, content: e.target.value })}
               style={styles.input}
             />
-            <label>Crea</label>
-            <input
-              type="text"
-              value={newpost.Crea}
-              onChange={(e) => setnewpost({ ...newpost, Crea: e.target.value })}
-              style={styles.input}
-            />
             <div style={styles.buttonGroup}>
               <button onClick={handleClose} style={styles.cancelButton}>
                 Close
@@ -66,7 +57,7 @@ function Modal({ animal, ping, setping }) {
               <button
                 onClick={() => {
                   dispatch(addpost(newpost));
-                  setping(!ping);
+                  setping(prev => !prev);
                   Swal.fire({
                     position: "center",
                     icon: "success",
