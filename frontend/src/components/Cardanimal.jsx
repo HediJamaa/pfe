@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { deleteanimal } from "../JS/userSlice/animalSlice";
+import { deleteanimal, editanimal } from "../JS/userSlice/animalSlice";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { addfavoris, deletefavoris } from "../JS/userSlice/favorisslice";
@@ -35,7 +35,7 @@ function Cardanimal({ animal, ping, setping }) {
   const [newfavoris, setnewfavoris] = useState({
     iduser: user?._id,
     nameuser: user?.name + " " + user?.lastname,
-    nameanimal: "",
+    nameanimal: animal?.name,
     imganimal: "",
     description: "",
     idurl: animal?._id || "",
@@ -46,7 +46,7 @@ function Cardanimal({ animal, ping, setping }) {
       setnewfavoris({
         iduser: user._id,
         nameuser: `${user.name} ${user.lastname}`,
-        nameanimal: animal.titel,
+        nameanimal: animal.name,
         imganimal: animal.img,
         idurl: animal?._id || "",
       });
@@ -75,7 +75,6 @@ function Cardanimal({ animal, ping, setping }) {
     setLiked(!liked);
     setping(prev => !prev);
   };
-
   return (
     <div style={{ position: "relative", borderRadius: 8 }}>
       {user?.category === "admin" && (
@@ -144,12 +143,12 @@ function Cardanimal({ animal, ping, setping }) {
             <img
               style={{ width: 224, height: 236 }}
               src={`http://localhost:5000/uploads/${animal.img}`}
-              alt={animal?.titel}
+              alt={animal?.name}
             />
           </div>
           <div className="animal-sec">
             <div className="animal-desc">
-              <div style={{ background: "#1dc693", borderRadius: 20, width: 80,height:28, color: "white",position:"relative",top:-12,fontSize:14,alignItems:"center",display:"flex",justifyContent:"center" }}><span>{animal?.Adoption ? "Non disponible" : "Disponible"}</span></div>
+              <div style={{ background: "#1dc693", borderRadius: 20, width: 80,height:28, color: "white",position:"relative",top:-12,fontSize:14,alignItems:"center",display:"flex",justifyContent:"center" }}><span>{animal?.adoption ? "Non disponible" : "Disponible"}</span></div>
               </div>
             <h2>{animal.name}</h2>
             <span className="h1name">{animal.age}</span>

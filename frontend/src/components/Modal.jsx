@@ -8,11 +8,14 @@ function Modal({ animal, ping, setping }) {
   const dispatch = useDispatch();
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const user = useSelector((state) => state.user.user);
+
 
   // Déclaration de l'état 'newpost' pour l'ajout du post
   const [newpost, setnewpost] = useState({
     title: "",
     content: "",
+    userid: user?._id,
   });
 
   // Utilisation de useEffect pour mettre à jour les valeurs de 'newpost' avec les données de l'animal
@@ -27,9 +30,11 @@ function Modal({ animal, ping, setping }) {
 
   return (
     <>
+    <div style={{display:"flex",justifyContent:"center"}}>
       <button onClick={handleShow} style={styles.button} disabled={show}>
-        Add
+        Ajouter mon histoire
       </button>
+      </div>
 
       {show && (
         <div className="modalinput" style={styles.modalOverlay} onClick={handleClose}>
@@ -83,7 +88,7 @@ function Modal({ animal, ping, setping }) {
 const styles = {
   button: {
     padding: "10px 15px",
-    backgroundColor: "#007bff",
+    backgroundColor: "#6366f1",
     color: "white",
     border: "none",
     borderRadius: "5px",

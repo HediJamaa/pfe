@@ -21,43 +21,49 @@ const isAuth = require("../middleware/passport");
 
 //register route 
 router.post("/register", registerRules(), validation, async (req, res) => {
-  // Si il y'a un user veut inscrit , il passe par là :
-  const { name, lastname, email, password, category, img } = req.body;
-  //des infos 
-  try {
-    const newUser = new User({ name, lastname, email, password,category, img });
-    // check if the email exist
-    const searchedUser = await User.findOne({ email });
-    //check si il'ya un user à le meme email 
+  const { name, lastname, email, password, category, img, postalCode, phone, location } = req.body;
 
+  try {
+    const searchedUser = await User.findOne({ email });
     if (searchedUser) {
-      return res.status(400).send({ msg: "email already exist" });
+      return res.status(400).send({ msg: "Email déjà utilisé." });
     }
 
-    // crypté password
-    const salt = 10;
-    const genSalt = await bcrypt.genSalt(salt);
-    const hashedPassword = await bcrypt.hash(password, genSalt);
-    //crytptage de mdp pour etre plus sécruisé 
-    console.log(hashedPassword);
-    newUser.password = hashedPassword;
-    // generation token
-    //save  the user
-    const newUserToken = await newUser.save();
+    const saltRounds = 10;
+    const salt = await bcrypt.genSalt(saltRounds);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    const newUser = new User({
+      name,
+      lastname,
+      email,
+      password: hashedPassword,
+      category,
+      img,
+      postalCode,
+      phone,
+      location,
+    });
+
+    const savedUser = await newUser.save();
+
     const payload = {
-      _id: newUser._id,
-      name: newUserToken.name,
+      _id: savedUser._id,
+      name: savedUser.name,
     };
-    const token = await jwt.sign(payload, process.env.SecretOrkey, {
+
+    const token = jwt.sign(payload, process.env.SecretOrKey, {
       expiresIn: 3600,
     });
 
-    res
-      .status(200)
-      .send({ newUserToken, msq: "user is saved", token: `bearer ${token}` });
+    res.status(200).send({
+      newUserToken: savedUser,
+      msg: "Utilisateur enregistré avec succès.",
+      token: `bearer ${token}`,
+    });
   } catch (error) {
-    res.send(error);
-    console.log(error);
+    console.error(error);
+    res.status(500).send({ msg: "Erreur lors de l'enregistrement." });
   }
 });
 

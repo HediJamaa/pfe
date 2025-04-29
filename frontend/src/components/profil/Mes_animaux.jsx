@@ -35,7 +35,7 @@ function Mes_animaux({ ping, setping }) {
         ) : (
           Animals?.filter((el) => el.idanimal === user?._id).map((el) => (
             <div key={el._id} className="animal-card">
-              <Link to={`/animaux/${el._id}`}><img style={{ width: 250,height:250 }} src={`http://localhost:5000/uploads/${el.img}`} alt={el.titel} /></Link>
+              <Link to={`/animaux/${el._id}`}><img style={{ width: 250,height:250 }} src={`http://localhost:5000/uploads/${el.img}`} alt={el.name} /></Link>
               <div className="animal-sec">
                 <p className="animal-desc">
                   <strong className="h1name">Name:&nbsp;</strong><span style={{ color: "#606060" }}>{el.name}</span>

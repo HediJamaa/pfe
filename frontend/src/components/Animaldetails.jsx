@@ -19,10 +19,10 @@ function Animaldetails() {
         <img
           className="animal-imgg"
           src={`http://localhost:5000/uploads/${animal?.img}`}
-          alt={animal?.titel}
+          alt={animal?.name}
         />
         <div className="animal-detailss">
-          <h4 className="animal-titlee">{animal?.titel}</h4>
+          <h4 className="animal-titlee">{animal?.name}</h4>
 
           {[
             { label: "Description", value: animal?.description },
@@ -30,15 +30,21 @@ function Animaldetails() {
             { label: "Race", value: animal?.race },
             { label: "Gender", value: animal?.gender },
             { label: "Location", value: animal?.location },
+            { label: "adoption", value: animal?.adoption ? "Non disponible" : "Disponible"  },
           ].map((item, index) => (
             <p className="animal-descc" key={index}>
               <strong>{item.label}:</strong>&nbsp;
               {item.value}
             </p>
           ))}
-          {user?.category !== "admin" &&
-          <AdoptModal animalId={animal._id} user_id={animal.idanimal}/>
-          }
+         {user?.category !== "admin" && user?._id !== animal.idanimal ? (
+            <AdoptModal proprietaire={animal?.proprietaire} animalId={animal._id} user_id={animal.idanimal} />
+) : user?._id === animal.idanimal ? (
+  <p style={{ fontStyle: "italic", color: "green" }}>
+    C'est votre propre animal.
+  </p>
+) : null}
+
         </div>
       </div>
 {/* sec2 */}
@@ -90,9 +96,9 @@ function Animaldetails() {
               fill="#8653C8"
             ></path>
           </svg>
-          <span style={{color:"#cdb1f5"}}>Activité :
+          <span style={{color:"#cdb1f5"}}>Activite :
           </span>
-            <span>{animal?.Activité}</span>
+            <span>{animal?.Activite}</span>
         </div>
         <div>
           <svg

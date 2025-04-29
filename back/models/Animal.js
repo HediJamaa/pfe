@@ -12,13 +12,14 @@ const animalsSchema = new schema({
   location: String,
   category: { type: String, default: "all" },
   user: String,
-  Adoption: Boolean,
+  adoption: Boolean,
   inventoryStatus:String,
   idanimal:String,
   age: String,
   remarque: String,
   Couleur: String,
-  Activité:String,
+  Activite:String,
+  proprietaire:String,
 });
 
 const Animals = mongoose.model("Animals", animalsSchema);

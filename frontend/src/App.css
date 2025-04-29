@@ -136,6 +136,8 @@ margin-top: 100px;
   justify-content: center;
   width: 880px;
   background: white;
+  border-radius:0 0 10px 10px;
+  padding-bottom: 50px;
 
 }
 .Group div {
@@ -200,4 +202,8 @@ padding-top: 10px;
   font-style: normal;
   font-variation-settings:
     "wdth" 200;
+}
+
+.p-calendar-w-btn-right input{
+  margin: 0px !important;
 }

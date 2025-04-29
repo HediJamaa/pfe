@@ -13,6 +13,10 @@ function AdoptionDashboard() {
   const dispatch = useDispatch();
   const { requests, loading, error } = useSelector((state) => state.adoption);
   const user = useSelector((state) => state.user.user);
+  const userRequests = requests.filter((r) => r.iduser === user._id);
+  
+    const animals = useSelector((state) => state.animal?.animalList || []);
+
 
   useEffect(() => {
     dispatch(fetchAdoptionRequests());
@@ -37,13 +41,12 @@ function AdoptionDashboard() {
     return <p style={{ color: "red" }}>Utilisateur non connecté.</p>;
   }
 
-  const userRequests = requests.filter((r) => r.iduser === user._id);
 
   const handleAdopt = (animalId) => {
     dispatch(
       editanimal({
         id: animalId,
-        edited: { Adoption: true },
+        edited: { adoption: true },
       })
     );
   };
@@ -71,61 +74,68 @@ function AdoptionDashboard() {
           </tr>
         </thead>
         <tbody>
-          {userRequests.map((r) => (
-            <tr key={r._id}>
-              <td>{r.name}</td>
-              <td>{r.télephone}</td>
-              <td>{r.email}</td>
-              <td>{r.reason}</td>
-              <td>{new Date(r.createdAt).toLocaleString()}</td>
-              <td>
-                <Link to={`/animaux/${r.idanimal}`}>{r.idanimal}</Link>
-              </td>
-              <td style={{ textAlign: "center" }}>
-                <span onClick={() => handleDelete(r._id)} style={{ fontSize: 26, cursor: "pointer" }}>✅</span>
-                <button
-                  onClick={handleAdopt}
-                  disabled={r.adoption} // يعطل الزر إذا هو déjà تم تبنيه
-                  className={`px-4 py-2 rounded ${
-                    r.adoption
-                      ? "bg-gray-400 cursor-not-allowed"
-                      : "bg-green-500 hover:bg-green-700"
-                  } text-white`}
-                >
-                  {r.adoption ? "Already Adopted" : "Adopt Me"}
-                </button>
-              </td>
-              <td
-                style={{
-                  textAlign: "center",
-                  display: "flex",
-                  justifyContent: "center",
-                }}
-              >
-                <span
-                  onClick={() => handleDelete(r._id)}
-                  style={{
-                    marginTop: 13,
-                    width: "27px",
-                    height: "27px",
-                    backgroundColor: "#ef4444",
-                    borderRadius: "5px",
-                    cursor: "pointer",
-                  }}
-                >
-                  {" "}
-                  <FaTimes
-                    style={{
-                      color: "white",
-                      fontSize: "20px",
-                      paddingRight: 8,
-                    }}
-                  />
-                </span>
-              </td>
-            </tr>
-          ))}
-        </tbody>
+  {userRequests.map((r) => {
+    const animal = animals.find((p) => p._id === r.idanimal); 
+    const handleAdopt = () => {
+      dispatch(
+        editanimal({
+          id: r.idanimal,
+          edited: { adoption: true },
+        })
+      );
+    };
+    return (
+      <tr key={r._id}>
+        <td>{r.name}</td>
+        <td>{r.télephone}</td>
+        <td>{r.email}</td>
+        <td>{r.reason}</td>
+        <td>{new Date(r.createdAt).toLocaleString()}</td>
+        <td>
+          <Link to={`/animaux/${r.idanimal}`}>{r.idanimal}</Link>
+        </td>
+        <td style={{ textAlign: "center" }}>
+          <span
+            onClick={() => {
+              handleAdopt(); // تأكيد التبني
+            }}
+            style={{ fontSize: 26, cursor: "pointer" }}
+          >
+            ✅
+          </span>
+        </td>
+        <td
+          style={{
+            textAlign: "center",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <span
+            onClick={() => handleDelete(r._id)}
+            style={{
+              marginTop: 13,
+              width: "27px",
+              height: "27px",
+              backgroundColor: "#ef4444",
+              borderRadius: "5px",
+              cursor: "pointer",
+            }}
+          >
+            <FaTimes
+              style={{
+                color: "white",
+                fontSize: "20px",
+                paddingRight: 8,
+              }}
+            />
+          </span>
+        </td>
+      </tr>
+    );
+  })}
+</tbody>
+
       </table>
     </div>
   );
