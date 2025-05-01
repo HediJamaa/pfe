@@ -27,6 +27,7 @@ function Animaldetails() {
           {[
             { label: "Description", value: animal?.description },
             { label: "Name", value: animal?.name },
+            { label: " Type d'animal", value: animal?.Type },
             { label: "Race", value: animal?.race },
             { label: "Gender", value: animal?.gender },
             { label: "Location", value: animal?.location },

@@ -169,6 +169,13 @@ padding-top: 10px;
   color: #fff;
   border-radius: 5px;
 }
+.info-button {
+  margin: 5px;
+  background: #f56a00;
+  border: none;
+  color: #fff;
+  border-radius: 5px;
+}
 .favorites-container{
   display: flex;
   flex-wrap: wrap;

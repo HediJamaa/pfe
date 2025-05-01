@@ -54,7 +54,7 @@ function Lesadoptions() {
     <div>
          <div style={{ padding: "2rem" }}>
               <ToastContainer />
-              <h2>Liste des demandes d’adoption</h2>
+              <h2>Demandes d’adoption reçues</h2>
               {loading && <p>Chargement...</p>}
               {error && <p style={{ color: "red" }}>{error}</p>}
               <table

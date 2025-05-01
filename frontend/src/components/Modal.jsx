@@ -39,8 +39,8 @@ function Modal({ animal, ping, setping }) {
       {show && (
         <div className="modalinput" style={styles.modalOverlay} onClick={handleClose}>
           <div style={styles.modal} onClick={(e) => e.stopPropagation()}>
-            <h2>Add Post</h2>
-            <label>Title</label>
+            <h2>Ajouter une Histoire</h2>
+            <label>Titre</label>
             <input
               type="text"
               value={newpost.title}
@@ -48,7 +48,7 @@ function Modal({ animal, ping, setping }) {
               style={styles.input}
               autoFocus
             />
-            <label>Content</label>
+            <label>Contenu</label>
             <input
               type="text"
               value={newpost.content}
@@ -57,7 +57,7 @@ function Modal({ animal, ping, setping }) {
             />
             <div style={styles.buttonGroup}>
               <button onClick={handleClose} style={styles.cancelButton}>
-                Close
+                Fermé
               </button>
               <button
                 onClick={() => {
@@ -74,7 +74,7 @@ function Modal({ animal, ping, setping }) {
                 }}
                 style={styles.saveButton}
               >
-                Save Changes
+                Ajouter
               </button>
             </div>
           </div>

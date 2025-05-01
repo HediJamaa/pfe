@@ -1,6 +1,5 @@
 const express = require("express");
 const User = require("../models/User");
-// Nous utilisons express pour créer des routes spéciales pour l’utilisateur.
 const router = express.Router();
 const bcrypt = require("bcrypt");
 //Cryté la mdp 

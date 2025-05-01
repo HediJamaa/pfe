@@ -8,6 +8,7 @@ const animalsSchema = new schema({
   img: String,
   description: String,
   race: String,
+  Type:String,
   gender: String,
   location: String,
   category: { type: String, default: "all" },

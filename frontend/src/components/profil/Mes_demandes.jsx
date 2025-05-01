@@ -6,7 +6,6 @@ import {
 } from "../../JS/userSlice/adoptionSlice";
 import { Link } from "react-router-dom";
 import { FaTimes } from "react-icons/fa";
-import { editanimal } from "../../JS/userSlice/animalSlice";
 import { toast, ToastContainer } from "react-toastify";
 
 function Mes_demandes() {
@@ -43,7 +42,7 @@ function Mes_demandes() {
   return (
       <div style={{ padding: "2rem" }}>
           <ToastContainer />
-          <h2>Liste des demandes d’adoption</h2>
+          <h2>Liste de mes demandes d’adoption</h2>
           {loading && <p>Chargement...</p>}
           {error && <p style={{ color: "red" }}>{error}</p>}
           <table
@@ -53,9 +52,7 @@ function Mes_demandes() {
           >
               <thead>
                   <tr>
-                      <th>Nom</th>
-                      <th>Numéro de télephone</th>
-                      <th>Email</th>
+                      <th>propriétaire</th>
                       <th>Raison</th>
                       <th>Date</th>
                       <th>Animal ID</th>
@@ -66,19 +63,9 @@ function Mes_demandes() {
               <tbody>
                   {userRequests.map((r) => {
                       const animal = animals.find((p) => p._id === r.idanimal);
-                      const handleAdopt = () => {
-                          dispatch(
-                              editanimal({
-                                  id: r.idanimal,
-                                  edited: { adoption: true },
-                              })
-                          );
-                      };
                       return (
                           <tr key={r._id}>
-                              <td>{r.name}</td>
-                              <td>{r.télephone}</td>
-                              <td>{r.email}</td>
+                              <td>{r.proprietaire}</td>
                               <td>{r.reason}</td>
                               <td>{new Date(r.createdAt).toLocaleString()}</td>
                               <td>
@@ -86,9 +73,15 @@ function Mes_demandes() {
                               </td>
                               <td style={{ textAlign: "center" }}>
                                   <span
+                                      style={{
+                                          color: animal?.adoption ? "orange" : "green",
+                                          fontWeight: "bold",
+                                          padding: "5px",
+                                      }}
                                   >
-                                      
+                                      {animal?.adoption ? "En attente" : "Acceptée"}
                                   </span>
+
                               </td>
                               <td
                                   style={{
