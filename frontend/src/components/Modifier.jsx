@@ -8,14 +8,6 @@ function Modifier({ animal, ping, setping }) {
   const [show, setShow] = useState(false);
   const dispatch = useDispatch();
 
-  const raceOptions = [
-    { label: "Labrador", value: "Labrador" },
-    { label: "Berger Allemand", value: "Berger Allemand" },
-    { label: "Chat Persan", value: "Chat Persan" },
-    { label: "Chat Siamois", value: "Chat Siamois" },
-    { label: "Croisé", value: "Croisé" },
-  ];
-
   const typeOptions = [
     { label: "Chats", value: "Chats" },
     { label: "Chiens", value: "Chiens" },
@@ -127,13 +119,10 @@ return (
               />
             </div>
             <div style={styles.column}>
-              <label>Type</label>
-              <Dropdown
-                value={edited.Type}
-                options={typeOptions}
-                onChange={(e) => setEdited({ ...edited, Type: e.value })}
-                placeholder="Type d'animal"
-                className="p-inputtext-sm"
+              <label>Race</label>
+              <input
+                value={edited.race}
+                onChange={(e) => setEdited({ ...edited, race: e.target.value })}
                 style={styles.input}
               />
             </div>
@@ -141,12 +130,12 @@ return (
 
           <div style={styles.row}>
             <div style={styles.column}>
-              <label>Race</label>
+              <label>Type</label>
               <Dropdown
-                value={edited.race}
-                options={raceOptions}
-                onChange={(e) => setEdited({ ...edited, race: e.value })}
-                placeholder="Race"
+                value={edited.Type}
+                options={typeOptions}
+                onChange={(e) => setEdited({ ...edited, Type: e.value })}
+                placeholder="Type d'animal"
                 className="p-inputtext-sm"
                 style={styles.input}
               />
@@ -220,6 +209,7 @@ return (
 
 const styles = {
   button: {
+    margin:"5px",
     padding: "10px 15px",
     backgroundColor: "#007bff",
     color: "white",
@@ -228,7 +218,7 @@ const styles = {
     cursor: "pointer",
   },
   modalOverlay: {
-    position: "",
+    position: "fixed",
     top: 0,
     left: 0,
     width: "100vw",
@@ -238,18 +228,20 @@ const styles = {
     justifyContent: "center",
     alignItems: "center",
     zIndex: 100,
+    overflow: "auto", // 🟢 يسمح بالتمرير
+    padding: "20px",  // 🟢 يضمن مسافة حتى لو المودال طويل
   },
   modal: {
-    position: "absolute",
-    top: 100,
-    left: 500,
     backgroundColor: "white",
     padding: "20px",
+    marginTop:"300px",
     borderRadius: "10px",
-    width: "600px",
+    width: "100%",
+    maxWidth: "600px",
     display: "flex",
     flexDirection: "column",
     gap: "15px",
+    boxShadow: "0 0 10px rgba(0,0,0,0.3)",
   },
   row: {
     display: "flex",

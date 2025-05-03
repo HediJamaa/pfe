@@ -6,13 +6,14 @@ import {
 } from "../../JS/userSlice/adoptionSlice";
 import { Link } from "react-router-dom";
 import { FaTimes } from "react-icons/fa";
-import { toast, ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify"; //x
 
 function Mes_demandes() {
     const dispatch = useDispatch();
     const { requests, loading, error } = useSelector((state) => state.adoption);
+    //récupere la liste des demande d'adoption
     const user = useSelector((state) => state.user.user);
-    const userRequests = requests.filter((r) => r.myid === user._id);
+    const userRequests = requests.filter((r) => r.myid === user._id);  
 
     const animals = useSelector((state) => state.animal?.animalList || []);
 
@@ -20,12 +21,12 @@ function Mes_demandes() {
     useEffect(() => {
         dispatch(fetchAdoptionRequests());
     }, [dispatch]);
-
+ 
     const handleDelete = (id) => {
         dispatch(deleteAdoptionRequest(id)).then((res) => {
             if (!res.error) {
-                toast.success("L'élément a été Refusé avec succès!", {
-                    autoClose: 3000, // إغلاق التوست بعد 3 ثواني
+                toast.success("L'élément a été Refusé avec succès!", {  
+                    autoClose: 3000, 
                 });
             } else {
                 toast.error("Erreur lors de la suppression.", {
@@ -74,12 +75,12 @@ function Mes_demandes() {
                               <td style={{ textAlign: "center" }}>
                                   <span
                                       style={{
-                                          color: animal?.adoption ? "orange" : "green",
+                                          color: animal?.adoption ? "green" : "orange",
                                           fontWeight: "bold",
                                           padding: "5px",
                                       }}
                                   >
-                                      {animal?.adoption ? "En attente" : "Acceptée"}
+                                      {animal?.adoption ? "Acceptée" : "En attente"}
                                   </span>
 
                               </td>

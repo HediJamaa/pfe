@@ -69,10 +69,9 @@ function App() {
             <Route path="Mes_animaux" element={<Mes_animaux ping={ping} setping={setping} />} />
             <Route path="Histoiress" element={<Histoires ping={ping} setping={setping} />} />
             <Route path="favorites" element={<Favorites ping={ping} setping={setping} />} />
-            <Route path="adoptions" element={<AdoptionDashboard />} />
-            <Route path="Lesadoptions" element={<Lesadoptions />} />
+            <Route path="Lesadoptions" element={<AdoptionDashboard />} />
+            <Route path="adoptions" element={<Lesadoptions />} />
             <Route path="Mes_demandes" element={<Mes_demandes />} />
-
           </Route>
         </Route>
       </Routes>
