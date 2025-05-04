@@ -45,15 +45,16 @@ export const deleteuser = createAsyncThunk("user/delete", async(id)=>{
       console.log(error)
   }
 })
-export const edituser = createAsyncThunk("user/edit", async({id,edited})=>{
+export const edituser = createAsyncThunk("user/edit", async ({ id, edited }) => {
   try {
-      let result = axios.put(`http://localhost:5000/user/${id}`,edited)
-      console.log("Response:", result);
-      return result
+    const result = await axios.put(`http://localhost:5000/user/users/${id}`, edited);
+    return result.data; 
   } catch (error) {
-      console.log(error)
+    console.log(error);
+    throw error;
   }
-})
+});
+
 
 export const getusers = createAsyncThunk("user/get", async () => {
   try {
@@ -64,6 +65,29 @@ export const getusers = createAsyncThunk("user/get", async () => {
       console.log(error)
   }
 })
+export const uploadAndEditUserImage = createAsyncThunk(
+  "user/uploadImage",
+  async ({ imageFile }) => {
+    const formData = new FormData();
+    formData.append("image", imageFile);
+
+    const uploadRes = await axios.post("http://localhost:5000/api/upload", formData);
+    const imageUrl = uploadRes.data.url;
+    console.log("Upload response:", uploadRes.data); 
+    return { img: imageUrl };
+  }
+);
+export const fetchUserById = createAsyncThunk(
+  "user/fetchUserById",
+  async (id, { rejectWithValue }) => {
+    try {
+      const res = await axios.get(`http://localhost:5000/api/users/${id}`);
+      return res.data;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
 const initialState = {
   user: null,
   status: null,
@@ -142,7 +166,17 @@ export const userSlice = createSlice({
       })
       .addCase(deleteuser.rejected, (state) => {
         state.status = "fail";
-      });
+      })
+      .addCase(uploadAndEditUserImage.pending, (state) => {
+        state.status = "pending";
+      })
+      .addCase(uploadAndEditUserImage.fulfilled, (state, action) => {
+        if (state.user) state.user.img = action.payload.img;
+      })
+      .addCase(uploadAndEditUserImage.rejected, (state) => {
+        state.status = "fail";
+      })
+      ;
   },
 })  
 
