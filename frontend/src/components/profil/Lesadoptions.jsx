@@ -13,10 +13,13 @@ function Lesadoptions() {
   const dispatch = useDispatch();
   const { requests, loading, error } = useSelector((state) => state.adoption);
   const user = useSelector((state) => state.user.user);
-  const userRequests = requests.filter((r) => r.iduser === user?._id);
-  
-    const animals = useSelector((state) => state.animal?.animalList || []);
+  const animals = useSelector((state) => state.animal?.animalList || []);
 
+  const userRequests = requests.filter(
+    (r) =>
+      r.iduser === user?._id &&
+      animals.find((a) => a._id === r.idanimal)?.adoption !== false
+  );
 
   useEffect(() => {
     dispatch(fetchAdoptionRequests());
@@ -26,7 +29,7 @@ function Lesadoptions() {
     dispatch(deleteAdoptionRequest(id)).then((res) => {
       if (!res.error) {
         toast.success("L'élément a été Refusé avec succès!", {
-          autoClose: 3000, 
+          autoClose: 3000,
         });
       } else {
         toast.error("Erreur lors de la suppression.", {
@@ -36,24 +39,9 @@ function Lesadoptions() {
     });
   };
 
-  
   if (!user) {
     return <p style={{ color: "red" }}>Utilisateur non connecté.</p>;
   }
-
-
-  const handleAdopt = (animalId) => {
-    dispatch(
-      editanimal({
-        id: animalId,
-        edited: { adoption: true },
-      })
-    ).then(() => {
-      toast.success("Adoption confirmée !", {
-        autoClose: 3000,
-      });
-    });
-  };
 
   return (
     <div style={{ padding: "2rem" }}>
@@ -79,71 +67,92 @@ function Lesadoptions() {
           </tr>
         </thead>
         <tbody>
-  {userRequests.map((r) => {
-    const animal = animals.find((p) => p._id === r.idanimal); 
-    const handleAdopt = (id) => {
-      dispatch(
-        editanimal({
-          id,
-          edited: { adoption: true },
-        })
-      ).then(() => {
-        toast.success("Adoption confirmée !", {
-          autoClose: 3000,
-        });
-      });
-    };
+          {userRequests.map((r) => {
+            const animal = animals.find((p) => p._id === r.idanimal);
+            const handleRefuse = (idanimal, requestId) => {
+              dispatch(
+                editanimal({
+                  id: idanimal,
+                  edited: { adoption: false },
+                })
+              ).then(() => {
+                toast.success("Adoption refusée avec succès !", {
+                  autoClose: 3000,
+                });
+              });
+            };
 
-    return (
-      <tr style={{ background: animal?.adoption ? "#86ff86" : "", }} key={r._id}>
-        <td>{r.name}</td>
-        <td>{r.telephone}</td>
-        <td>{r.email}</td>
-        <td>{r.reason}</td>
-        <td>{new Date(r.createdAt).toLocaleString()}</td>
-        <td>
-          <Link to={`/animaux/${r.idanimal}`}>{r.idanimal}</Link>
-        </td>
-        <td style={{ textAlign: "center" }}>
-          <span
-            onClick={() => handleAdopt(r.idanimal)} // هنا نبعث ID
-            style={{ fontSize: 26, cursor: "pointer" }}
-          >
-            ✅
-          </span>
-        </td>
-        <td
-          style={{
-            textAlign: "center",
-            display: "flex",
-            justifyContent: "center",
-          }}
-        >
-          <span
-            onClick={() => handleDelete(r._id)}
-            style={{
-              marginTop: 13,
-              width: "27px",
-              height: "27px",
-              backgroundColor: "#ef4444",
-              borderRadius: "5px",
-              cursor: "pointer",
-            }}
-          >
-            <FaTimes //icons 
-              style={{
-                color: "white",
-                fontSize: "20px",
-                paddingRight: 8,
-              }}
-            />
-          </span>
-        </td>
-      </tr>
-    );
-  })}
-</tbody>
+            const handleAdopt = (id) => {
+              dispatch(
+                editanimal({
+                  id,
+                  edited: { adoption: true },
+                })
+              ).then(() => {
+                toast.success("Adoption confirmée !", {
+                  autoClose: 3000,
+                });
+              });
+            };
 
+            return (
+              <tr
+                style={{ background: animal?.adoption ? "#86ff86" : "" }}
+                key={r._id}
+              >
+                <td>{r.name}</td>
+                <td>{r.telephone}</td>
+                <td>{r.email}</td>
+                <td>{r.reason}</td>
+                <td>{new Date(r.createdAt).toLocaleString()}</td>
+                <td>
+                  <Link to={`/animaux/${r.idanimal}`}>{r.idanimal}</Link>
+                </td>
+                <td style={{ textAlign: "center" }}>
+                  {animal?.adoption === undefined ||
+                  animal?.adoption === false ? (
+                    <span
+                      onClick={() => handleAdopt(r.idanimal)} // هنا نبعث ID
+                      style={{ fontSize: 26, cursor: "pointer" }}
+                    >
+                      ✅
+                    </span>
+                  ) : null}
+                </td>
+                <td
+                  style={{
+                    textAlign: "center",
+                    display: "flex",
+                    justifyContent: "center",
+                  }}
+                >
+                  {animal?.adoption === undefined ||
+                  animal?.adoption === false ? (
+                    <span
+                      onClick={() => handleRefuse(r.idanimal, r._id)}
+                      style={{
+                        marginTop: 13,
+                        width: "27px",
+                        height: "27px",
+                        backgroundColor: "#ef4444",
+                        borderRadius: "5px",
+                        cursor: "pointer",
+                      }}
+                    >
+                      <FaTimes //icons
+                        style={{
+                          color: "white",
+                          fontSize: "20px",
+                          paddingRight: 8,
+                        }}
+                      />
+                    </span>
+                  ) : null}
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
       </table>
     </div>
   );

@@ -1,17 +1,17 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-export const userRegister = createAsyncThunk("user/register", async (user) => {
-  try {
-    let response = await axios.post(
-      "http://localhost:5000/user/register",
-      user
-    );
-    return response;
-  } catch (error) {
-    console.log(error);
+export const userRegister = createAsyncThunk(
+  "user/register",
+  async (user, { rejectWithValue }) => {
+    try {
+      const res = await axios.post("http://localhost:5000/user/register", user);
+      return res.data;
+    } catch (err) {
+      return rejectWithValue(err.response.data.msg); 
+    }
   }
-});
+);
 export const userlogin = createAsyncThunk("user/login", async (user, { rejectWithValue }) => {
   try {
     let response = await axios.post("http://localhost:5000/user/login", user);
@@ -38,7 +38,7 @@ export const userCurrent = createAsyncThunk("user/current", async () => {
 
 export const deleteuser = createAsyncThunk("user/delete", async(id)=>{
   try {
-      let result = axios.delete(`http://localhost:5000/user/${id}`)
+    let result = await axios.delete(`http://localhost:5000/user/${id}`)
       console.log("Response:", result);
       return result
   } catch (error) {
@@ -58,7 +58,7 @@ export const edituser = createAsyncThunk("user/edit", async ({ id, edited }) => 
 
 export const getusers = createAsyncThunk("user/get", async () => {
   try {
-      let result = axios.get("http://localhost:5000/user/")
+    let result = await axios.get("http://localhost:5000/user/")
       console.log("Response:", result);
       return result
   } catch (error) {
@@ -81,7 +81,7 @@ export const fetchUserById = createAsyncThunk(
   "user/fetchUserById",
   async (id, { rejectWithValue }) => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/users/${id}`);
+      const res = await axios.get(`http://localhost:5000/user/api/users/${id}`);
       return res.data;
     } catch (err) {
       return rejectWithValue(err.response.data);
@@ -113,8 +113,9 @@ export const userSlice = createSlice({
         state.user = action.payload.data.newUserToken;
         localStorage.setItem("token", action.payload.data.token);
       })
-      .addCase(userRegister.rejected, (state) => {
+      .addCase(userRegister.rejected, (state, action) => {
         state.status = "fail";
+        state.error = action.payload; // <-- on stocke le message d’erreur ici
       })
       .addCase(userlogin.pending, (state) => {
         state.status = "pending";

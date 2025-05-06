@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { userRegister } from "../JS/userSlice/userSlice";
 import { Link, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./Login.css";
 
 function Register() {
@@ -15,7 +17,8 @@ function Register() {
     phone: "",
   });
 
-  const [ping, setPing] = useState(false); // état utilisé pour rafraîchir si besoin
+  const error = useSelector((state) => state.user.error);
+  const [ping, setPing] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -27,18 +30,34 @@ function Register() {
       (val) => val.trim() !== ""
     );
     if (!tousChampsRemplis) {
-      alert("Veuillez remplir tous les champs.");
+      toast.error("Veuillez remplir tous les champs.");
       return;
     }
 
     // Vérifie que le numéro de téléphone contient exactement 8 chiffres
     if (!/^\d{8}$/.test(register.phone)) {
-      alert("Le numéro de téléphone doit contenir exactement 8 chiffres.");
+      toast.error("Le numéro de téléphone doit contenir exactement 8 chiffres.");
       return;
     }
 
-    dispatch(userRegister(register));
-    navigate("/");
+    // Vérifie que le mot de passe a une longueur entre 6 et 20 caractères
+    if (register.password.length < 6 || register.password.length > 20) {
+      toast.error("Le mot de passe doit contenir entre 6 et 20 caractères.");
+      return;
+    }
+
+    // Dispatch userRegister et gère le toast en cas d'erreur
+    dispatch(userRegister(register))
+      .unwrap()
+      .then(() => {
+        navigate("/");
+      })
+      .catch((error) => {
+        if (error) {
+          toast.error(error);
+        }
+      });
+
     setPing((prev) => !prev);
   };
 
@@ -49,7 +68,7 @@ function Register() {
         <form onSubmit={handleSubmit}>
           <input
             type="text"
-            className="login-input"
+            className="login-inputt"
             placeholder="Nom"
             required
             onChange={(e) =>
@@ -58,7 +77,7 @@ function Register() {
           />
           <input
             type="text"
-            className="login-input"
+            className="login-inputt"
             placeholder="Prénom"
             required
             onChange={(e) =>
@@ -67,7 +86,7 @@ function Register() {
           />
           <input
             type="tel"
-            className="login-input"
+            className="login-inputt"
             placeholder="Téléphone (8 chiffres)"
             required
             maxLength={8}
@@ -80,7 +99,7 @@ function Register() {
           />
           <input
             type="email"
-            className="login-input"
+            className="login-inputt"
             placeholder="Adresse e-mail"
             required
             onChange={(e) =>
@@ -89,7 +108,7 @@ function Register() {
           />
           <input
             type="text"
-            className="login-input"
+            className="login-inputt"
             placeholder="Ville / Localité"
             required
             onChange={(e) =>
@@ -98,7 +117,7 @@ function Register() {
           />
           <input
             type="text"
-            className="login-input"
+            className="login-inputt"
             placeholder="Code postal"
             required
             onChange={(e) =>
@@ -107,7 +126,7 @@ function Register() {
           />
           <input
             type="password"
-            className="login-input"
+            className="login-inputt"
             placeholder="Mot de passe"
             required
             onChange={(e) =>
@@ -124,6 +143,9 @@ function Register() {
           Vous avez déjà un compte ? <Link to="/login">Se connecter</Link>
         </p>
       </div>
+
+      {/* Le conteneur pour les notifications toast */}
+      <ToastContainer />
     </div>
   );
 }

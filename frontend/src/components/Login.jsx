@@ -29,7 +29,7 @@ function Login() {
       const userRole = result.payload.user?.category;
 
       if (userRole === "admin") {
-        navigate("/profil");
+        navigate("/profil/Lesadoptions");
       } else {
         navigate("/");
       }
@@ -67,9 +67,8 @@ function Login() {
             >
               {showPassword ? <FaEyeSlash /> : <FaEye />}
             </span>
-            {errorMessage && <p className="error-message">{errorMessage}</p>}
-
           </div>
+          {errorMessage && <p className="error-message">{errorMessage}</p>}
           <label className="login-checkbox">
             <input type="checkbox" value="remember-me" /> Rester connecté
           </label>

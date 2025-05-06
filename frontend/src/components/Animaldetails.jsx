@@ -39,14 +39,24 @@ function Animaldetails() {
               {item.value}
             </p>
           ))}
-          {user?.category !== "admin" && user?._id !== animal.idanimal ? (
-            //  admin et le propritaire ne peuvent pasa faire des adoptions 
-            <AdoptModal proprietaire={animal?.proprietaire} animalId={animal._id} user_id={animal.idanimal} />
-          ) : user?._id === animal.idanimal ? (
+          {user?.category !== "admin" && user?._id !== animal?.idanimal ? (
+            animal?.adoption === true ? (
+              <p style={{ fontStyle: "italic", color: "red" }}>
+                Non disponible.
+              </p>
+            ) : (
+                <AdoptModal
+                  proprietaire={animal?.proprietaire}
+                  animalId={animal?._id}
+                  user_id={animal?.idanimal}
+                />
+            )
+          ) : user?._id === animal?.idanimal ? (
             <p style={{ fontStyle: "italic", color: "green" }}>
               C'est votre propre animal.
             </p>
           ) : null}
+
 
         </div>
       </div>
