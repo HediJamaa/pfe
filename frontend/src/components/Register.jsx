@@ -1,12 +1,13 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { userRegister } from "../JS/userSlice/userSlice";
+import { fetchUserData } from "../JS/userSlice/userSlice";  // Assure-toi d'avoir une action pour récupérer les données utilisateur
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./Login.css";
 
-function Register() {
+function Register({ping,setping}) {
   const [register, setRegister] = useState({
     name: "",
     lastname: "",
@@ -17,8 +18,6 @@ function Register() {
     phone: "",
   });
 
-  const error = useSelector((state) => state.user.error);
-  const [ping, setPing] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -49,8 +48,28 @@ function Register() {
     // Dispatch userRegister et gère le toast en cas d'erreur
     dispatch(userRegister(register))
       .unwrap()
-      .then(() => {
-        navigate("/");
+      .then((response) => {
+        // Enregistrer le token dans localStorage
+        localStorage.setItem("token", response.token);
+
+        // Mise à jour de l'état de l'utilisateur dans le store Redux
+        dispatch({
+          type: "user/login/fulfilled",  // Si le nom du slice change, assure-toi d'adapter ici
+          payload: {
+            user: response.user,
+            token: response.token,
+          },
+        });
+
+        // Récupérer les données utilisateur après l'inscription
+        dispatch(fetchUserData());
+
+        // Rediriger l'utilisateur vers son profil après 2 secondes
+        setTimeout(() => {
+          navigate("/profil/info");
+          // Rafraîchir la page après 2 secondes
+          window.location.reload();
+        }, 10); // 2000 ms = 2 secondes
       })
       .catch((error) => {
         if (error) {
@@ -58,8 +77,9 @@ function Register() {
         }
       });
 
-    setPing((prev) => !prev);
+    setping((prev) => !prev);
   };
+
 
   return (
     <div className="login-page">

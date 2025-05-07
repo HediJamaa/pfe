@@ -5,7 +5,6 @@ import {
   fetchAdoptionRequests,
 } from "../../JS/userSlice/adoptionSlice";
 import { Link } from "react-router-dom";
-import { FaTimes } from "react-icons/fa";
 import { editanimal } from "../../JS/userSlice/animalSlice";
 import { toast, ToastContainer } from "react-toastify";
 

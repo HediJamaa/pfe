@@ -3,6 +3,8 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router";
 import "./Animaldetails.css";
 import AdoptModal from "./AdoptModal";
+import { FaSyringe } from "react-icons/fa";
+
 
 function Animaldetails() {
   const user = useSelector((state) => state.user.user);
@@ -137,6 +139,12 @@ function Animaldetails() {
             <span style={{ color: "#cdb1f5" }}>Age :
             </span>
             <span>{animal?.age}</span>
+          </div>
+          <div>
+            <FaSyringe style={{ color:"#8653c8" ,width:47,height:21,}} />
+            <span style={{ color: "#cdb1f5" }}>Vaccin :
+            </span>
+            <span>{animal?.vaccin}</span>
           </div>
         </div>
       </div>

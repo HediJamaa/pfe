@@ -1,6 +1,17 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
+
+// Dans userSlice.js
+export const fetchUserData = () => async (dispatch) => {
+  try {
+    const response = await api.get("/user");  // Remplace par ton API
+    dispatch({ type: "user/fetchUserData", payload: response.data });
+  } catch (error) {
+    console.error("Erreur lors de la récupération des données utilisateur", error);
+  }
+};
+
 export const userRegister = createAsyncThunk(
   "user/register",
   async (user, { rejectWithValue }) => {
@@ -109,9 +120,9 @@ export const userSlice = createSlice({
         state.status = "pending";
       })
       .addCase(userRegister.fulfilled, (state, action) => {
-        state.status = "successsss";
-        state.user = action.payload.data.newUserToken;
-        localStorage.setItem("token", action.payload.data.token);
+        state.status = "success";
+        state.user = action.payload.user;  
+        localStorage.setItem("token", action.payload.token); 
       })
       .addCase(userRegister.rejected, (state, action) => {
         state.status = "fail";
@@ -122,10 +133,10 @@ export const userSlice = createSlice({
       })
       .addCase(userlogin.fulfilled, (state, action) => {
         state.status = "success";
-        state.user = action.payload.user;
-        localStorage.setItem("token", action.payload.token);
-        state.error = null; // تصفير الخطأ عند النجاح
+        state.user = action.payload.user;  
+        localStorage.setItem("token", action.payload.token);  
       })
+
       .addCase(userlogin.rejected, (state, action) => {
         state.status = "fail";
         state.error = action.payload?.msg || "Login failed! Please try again.";

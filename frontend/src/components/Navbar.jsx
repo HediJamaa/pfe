@@ -43,11 +43,6 @@ function ColorSchemesExample() {
             <Nav.Link as={Link} to="/Adoption" className="roboto text-white">
               Adopter
             </Nav.Link>
-            {user && (
-             <Nav.Link as={Link} to="/Ajouter" className="roboto text-white">
-              Ajouter un animal 
-            </Nav.Link>
-            )}
             {!user && (
               <Nav.Link as={Link} to="/Login" className="roboto text-white">
                 Se connecter
