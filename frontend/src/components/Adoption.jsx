@@ -11,12 +11,12 @@ export default function NumScrollDemo() {
   const user = useSelector((state) => state.user.userlist);
   const dispatch = useDispatch();
 
-  const [localAnimals, setLocalAnimals] = useState([]);
+  const [localAnimals, setLocalAnimals] = useState([]); // local animals
   const [showAll, setShowAll] = useState(false);
 
   const reduxAnimals = useSelector((state) => state.animal?.animalList || []);
 
-  // Carousel responsive
+  // Options for responsive carousel
   const responsiveOptions = [
     { breakpoint: "1400px", numVisible: 2, numScroll: 1 },
     { breakpoint: "1199px", numVisible: 3, numScroll: 1 },
@@ -24,26 +24,21 @@ export default function NumScrollDemo() {
     { breakpoint: "575px", numVisible: 1, numScroll: 1 },
   ];
 
-  // Fetch animals from server (local use)
+  // Fetch animals for Carousel (local use)
   useEffect(() => {
     const fetchAnimals = async () => {
       try {
         const data = await AnimalService.getAnimalsSmall();
-        const filteredData = data.filter((animal) =>
-          user.some((u) => u._id === animal.idanimal)
-        );
-        setLocalAnimals(filteredData.slice(0, 9));
+        setLocalAnimals(data.slice(0, 9)); // Limiting to 9 animals
       } catch (error) {
         console.error("Erreur lors de la récupération des animaux :", error);
       }
     };
 
-    if (user.length > 0) {
-      fetchAnimals();
-    }
-  }, [user]);
+    fetchAnimals();
+  }, []);
 
-  // Fetch animals from Redux store
+  // Fetch animals into Redux store
   useEffect(() => {
     dispatch(getanimal());
   }, [dispatch]);
@@ -76,22 +71,22 @@ export default function NumScrollDemo() {
     </div>
   );
 
-  // Filtered animals from Redux
+  // Filtered animals from Redux based on user
   const filteredAnimals = reduxAnimals.filter((animal) =>
     user.some((u) => u._id === animal.idanimal)
   );
 
-  const visibleAnimals = showAll ? filteredAnimals : filteredAnimals.slice(0, 0);
+  const visibleAnimals = showAll ? filteredAnimals : filteredAnimals.slice(0, 9);
 
   return (
     <>
       {/* Carousel Section */}
       <div className="card" style={{ padding: "0 200px", background: "#efeff1" }}>
         <Carousel
-          value={localAnimals}
+          value={visibleAnimals}  // Here use visibleAnimals instead of localAnimals
           itemTemplate={animalTemplate}
           numScroll={1}
-          numVisible={4}
+          numVisible={3}
           circular
           autoplayInterval={5000}
           responsiveOptions={responsiveOptions}

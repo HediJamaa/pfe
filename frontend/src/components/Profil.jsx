@@ -49,7 +49,7 @@ const Profil = () => {
         isActive ? "nav-link active" : "nav-link"
       }
     >
-      <FaBell className="icon" /> <h6>User info</h6>
+      <FaBell className="icon" /> <h6>Profil</h6>
     </NavLink>
   </li>
           )}

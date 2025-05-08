@@ -97,7 +97,7 @@ function Lesadoptions() {
 
             return (
               <tr
-                style={{ background: animal?.adoption ? "#86ff86" : "" }}
+                style={{background: animal?.adoption ? "#86ff86" : "" }}
                 key={r._id}
               >
                 <td>{r.name}</td>
@@ -131,7 +131,7 @@ function Lesadoptions() {
                     <span
                       onClick={() => handleRefuse(r.idanimal, r._id)}
                       style={{
-                        marginTop: 13,
+                        marginTop: 23,
                         width: "27px",
                         height: "27px",
                         backgroundColor: "#ef4444",
