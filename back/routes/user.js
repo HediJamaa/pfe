@@ -2,9 +2,7 @@ const express = require("express");
 const User = require("../models/User");
 const router = express.Router();
 const bcrypt = require("bcrypt");
-//Cryté la mdp 
 const user = require("../models/User");
-//Nous importons le modèle User pour pouvoir ajouter, modifier ou chercher un utilisateur dans BD
 const jwt = require("jsonwebtoken");
 //JWT nous permt de faire l'authentication. Pas d'accées au BD pour chaque utlisateur 
 const {
@@ -16,7 +14,7 @@ const {
 
 
 const isAuth = require("../middleware/passport");
-//check que l'utlisateur est connecté 
+
 
 //register route 
 router.post("/register", registerRules(), validation, async (req, res) => {
@@ -55,9 +53,8 @@ router.post("/register", registerRules(), validation, async (req, res) => {
       expiresIn: 3600,
     });
 
-    // التعديل هنا
     res.status(200).send({
-      newUserToken: token,  // إرسال التوكن بدلاً من الكائن savedUser
+      newUserToken: token, 
       msg: "Utilisateur enregistré avec succès.",
       token: `bearer ${token}`,
     });

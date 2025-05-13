@@ -56,7 +56,7 @@
                 <th>Date</th>
                 <th>Animal ID</th>
                 <th style={{ textAlign: "center" }}>Confirmer l'adoption </th>
-                <th style={{ textAlign: "center" }}>Delete</th>
+                <th style={{ textAlign: "center" }}>Annuler</th>
             </tr>
             </thead>
             <tbody>

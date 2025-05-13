@@ -28,7 +28,7 @@ export const userlogin = createAsyncThunk("user/login", async (user, { rejectWit
     let response = await axios.post("http://localhost:5000/user/login", user);
     return response.data; // إعادة بيانات المستخدم عند النجاح
   } catch (error) {
-    return rejectWithValue(error.response?.data || { msg: "Login failed! Please try again." });
+    return rejectWithValue(error.response?.data || { msg: "Échec de la connexion ! Veuillez réessayer" });
   }
 });
 
@@ -139,7 +139,7 @@ export const userSlice = createSlice({
 
       .addCase(userlogin.rejected, (state, action) => {
         state.status = "fail";
-        state.error = action.payload?.msg || "Login failed! Please try again.";
+        state.error = action.payload?.msg || "Échec de la connexion ! Veuillez réessayer";
       })    
       .addCase(userCurrent.pending, (state) => {
         state.status = "pending";

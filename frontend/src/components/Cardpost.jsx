@@ -30,8 +30,8 @@ function Cardpost({ Expérience }) {
 
   return (
     <>
-<div className="nakcha">
-        {(user?._id === Expérience?.userid || user?.category === "admin") && (
+<div className="annuler">
+        {(user?.category === "admin") && (
           // user le owner de Expérience 
           <button
             style={{
