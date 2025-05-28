@@ -17,16 +17,6 @@ function Buttonxp({ animal, ping, setping }) {
         userid: user?._id,
     });
 
-    useEffect(() => {
-        if (animal) {
-            setnewpost((prev) => ({
-                ...prev,
-                idanimal: animal._id || "",
-                userid: user?._id,
-            }));
-        }
-    }, [animal, user]);
-
     const handleSubmit = () => {
         if (!newpost.title.trim() || !newpost.content.trim()) {
             Swal.fire({

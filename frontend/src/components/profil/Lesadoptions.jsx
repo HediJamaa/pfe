@@ -25,19 +25,6 @@ function Lesadoptions() {
     dispatch(fetchAdoptionRequests());
   }, [dispatch]);
 
-  const handleDelete = (id) => {
-    dispatch(deleteAdoptionRequest(id)).then((res) => {
-      if (!res.error) {
-        toast.success("L'élément a été Refusé avec succès!", {
-          autoClose: 3000,
-        });
-      } else {
-        toast.error("Erreur lors de la suppression.", {
-          autoClose: 3000,
-        });
-      }
-    });
-  };
 
   if (!user) {
     return <p style={{ color: "red" }}>Utilisateur non connecté.</p>;
@@ -112,7 +99,7 @@ function Lesadoptions() {
                   {animal?.adoption === undefined ||
                   animal?.adoption === false ? (
                     <span
-                      onClick={() => handleAdopt(r.idanimal)} // هنا نبعث ID
+                      onClick={() => handleAdopt(r.idanimal)} 
                       style={{ fontSize: 26, cursor: "pointer" }}
                     >
                       ✅

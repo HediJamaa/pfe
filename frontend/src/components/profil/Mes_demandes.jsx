@@ -11,7 +11,6 @@
     function Mes_demandes() {
     const dispatch = useDispatch();
     const { requests, loading, error } = useSelector((state) => state.adoption);
-    //récupere la liste des demande d'adoption
     const user = useSelector((state) => state.user.user);
     const userRequests = requests.filter((r) => r.myid === user._id);
 
@@ -24,7 +23,7 @@
     const handleDelete = (id) => {
         dispatch(deleteAdoptionRequest(id)).then((res) => {
         if (!res.error) {
-            toast.success("L'élément a été delete avec succès!", {
+            toast.success("L'élément a été supprimer avec succès!", {
             autoClose: 3000,
             });
         } else {

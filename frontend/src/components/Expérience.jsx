@@ -4,8 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getpost } from "../JS/userSlice/postSlice";
 
 
-function Expérience({ ping, setping}) {
-  const user = useSelector((state) => state.user.user);
+function Expérience() {
   const dispatch = useDispatch();
   const poste = useSelector((state) => state.post?.postlist || []);
 

@@ -76,6 +76,7 @@ export const getusers = createAsyncThunk("user/get", async () => {
       console.log(error)
   }
 })
+//pour l'image
 export const uploadAndEditUserImage = createAsyncThunk(
   "user/uploadImage",
   async ({ imageFile }) => {
@@ -88,6 +89,7 @@ export const uploadAndEditUserImage = createAsyncThunk(
     return { img: imageUrl };
   }
 );
+//pour user
 export const fetchUserById = createAsyncThunk(
   "user/fetchUserById",
   async (id, { rejectWithValue }) => {
@@ -192,7 +194,6 @@ export const userSlice = createSlice({
   },
 })  
 
-// Action creators are generated for each case reducer function
 export const { logout } = userSlice.actions;
 
 export default userSlice.reducer;

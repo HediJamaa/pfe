@@ -4,7 +4,6 @@ import { addpost } from "../JS/userSlice/postSlice";
 import Swal from "sweetalert2";
 
 function Modal({ animal, ping, setping }) {
-  const [show, setShow] = useState(true); // Toujours visible si Modal monté
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
 
